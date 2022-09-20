@@ -1,0 +1,21 @@
+.nav-container {
+    background-color: #999999;
+    height: 50px;
+    width: 100%;
+}
+
+.nav-link {
+    align-items: center;
+    color: #fff;
+    display: flex;
+    font-size: 1.25em;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    justify-content: center;
+    text-decoration: none;
+    width: 100%;
+}
+
+.nav-link:hover {
+    background-color: #666666;
+}
