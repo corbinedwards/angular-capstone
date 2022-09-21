@@ -1,22 +1,22 @@
 [
 	{
-		"LabelName": "XL Recordings",
-		"LabelId": "1",
-		"Description": "This is organization 1"
+		"OrganizationName": "Deathwish",
+		"OrganizationId": "1",
+		"Description": "Deathwish Inc."
 	},
 	{
-		"LabelName": "Brainfeeder",
-		"LabelId": "2",
-		"Description": "This is organization 2"
+		"OrganizationName": "Brainfeeder",
+		"OrganizationId": "2",
+		"Description": "Brainfeeder Records"
     },
     {
-		"LabelName": "Rise Records",
-		"LabelId": "3",
-		"Description": "This is organization 3" 
+		"OrganizationName": "Rise Records",
+		"OrganizationId": "3",
+		"Description": "Rise Records" 
 	},
 	{
-		"LabelName": "Sub Pop",
-		"LabelId": "4",
-		"Description": "This is organization 4"
+		"OrganizationName": "Sub Pop",
+		"OrganizationId": "4",
+		"Description": "Sub Pop Records"
 	}
 ]

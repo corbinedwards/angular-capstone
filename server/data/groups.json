@@ -1,1 +1,101 @@
-[{"GroupId":1,"GroupName":"United Front","OrganizationName":"Organization One","SponsorName":"Natalie Rachelle","SponsorPhone":"555-000-0000","SponsorEmail":"nat214@gmail.com","MaxGroupSize":7,"Members":[{"MemberId":2,"MemberEmail":"editedMember@me.com","MemberName":"EditedMemberName Linda","MemberPhone":"987-6543"},{"MemberId":4,"MemberEmail":"aslan_the_great@gmail.com","MemberName":"Elisha Aslan","MemberPhone":"555-000-0003"},{"MemberId":6,"MemberEmail":"susa2007@gmail.com","MemberName":"Siddalee Grace","MemberPhone":"555-000-0020"}]},{"GroupId":2,"GroupName":"Warriors","OrganizationName":"Organization Two","SponsorName":"Brittany Ray","SponsorPhone":"555-000-0004","SponsorEmail":"brit805@aol.com","MaxGroupSize":7,"Members":[{"MemberId":1,"MemberEmail":"pursy1222@gmail.com","MemberName":"Pursalane Faye","MemberPhone":"555-000-0005"},{"MemberId":5,"MemberEmail":"thebro@gmail.com","MemberName":"Zephaniah Hughes","MemberPhone":"555-000-0006"}]},{"GroupId":3,"GroupName":"United Front","OrganizationName":"Organization One","SponsorName":"Kevin","SponsorPhone":"123-1234555-","SponsorEmail":"kevin@kevin.com","MaxGroupSize":1,"Members":[{"MemberId":3,"MemberEmail":"ian_the_great@gmail.com","MemberName":"Ian Auston","MemberPhone":"555-000-0025"}]},{"GroupId":4,"GroupName":"testgroup","OrganizationName":"Organization One","SponsorName":"Kevin Ruse","SponsorPhone":"555-5555","SponsorEmail":"kevin@kevin.com","MaxGroupSize":1,"Members":[]},{"GroupId":5,"GroupName":"testgroup","OrganizationName":"Organization One","SponsorName":"Kevin Ruse","SponsorPhone":"555-5555","SponsorEmail":"kevin@kevin.com","MaxGroupSize":1,"Members":[]}]
+[
+    {   
+        "GroupId":1,
+        "GroupName":"Converge",
+        "OrganizationName":"Deathwish",
+        "SponsorName":"Natalie Rachelle",
+        "SponsorPhone":"555-000-0000",
+        "SponsorEmail":"nat214@gmail.com",
+        "MaxGroupSize":7,
+        "Members": [
+            {
+                "MemberId":2,
+                "MemberEmail":"editedMember@me.com",
+                "MemberName":"EditedMemberName Linda",
+                "MemberPhone":"987-6543"
+            },
+            {
+                "MemberId":4,
+                "MemberEmail":"aslan_the_great@gmail.com",
+                "MemberName":"Elisha Aslan",
+                "MemberPhone":"555-000-0003"
+            },
+            {
+                "MemberId":6,
+                "MemberEmail":"susa2007@gmail.com",
+                "MemberName":"Siddalee Grace",
+                "MemberPhone":"555-000-0020"
+            }
+        ]
+    },
+    {
+        "GroupId":2,
+        "GroupName":"Falling in Reverse",
+        "OrganizationName":"Rise Records",
+        "SponsorName":"Brittany Ray",
+        "SponsorPhone":"555-000-0004",
+        "SponsorEmail":"brit805@aol.com",
+        "MaxGroupSize":7,
+        "Members": [
+            {
+                "MemberId":1,
+                "MemberEmail":"pursy1222@gmail.com",
+                "MemberName":"Pursalane Faye",
+                "MemberPhone":"555-000-0005"
+            },
+            {
+                "MemberId":5,
+                "MemberEmail":"thebro@gmail.com",
+                "MemberName":"Zephaniah Hughes",
+                "MemberPhone":"555-000-0006"
+            }
+        ]
+    },
+    {
+        "GroupId":3,
+        "GroupName":"Flying Lotus",
+        "OrganizationName":"Brainfeeder",
+        "SponsorName":"Kevin",
+        "SponsorPhone":"123-1234555-",
+        "SponsorEmail":"kevin@kevin.com",
+        "MaxGroupSize":1,
+        "Members": [
+            {
+                "MemberId":3,
+                "MemberEmail":"ian_the_great@gmail.com",
+                "MemberName":"Ian Auston",
+                "MemberPhone":"555-000-0025"
+            }
+        ]
+    },
+    {
+        "GroupId":4,
+        "GroupName":"Aphex Twin",
+        "OrganizationName":"Sub Pop",
+        "SponsorName":"Kevin Ruse",
+        "SponsorPhone":"555-5555",
+        "SponsorEmail":"kevin@kevin.com",
+        "MaxGroupSize":1,
+        "Members":[]
+    },
+    {
+        "GroupId":5,
+        "GroupName":"testgroup",
+        "OrganizationName":"Organization One",
+        "SponsorName":"Kevin Ruse",
+        "SponsorPhone":"555-5555",
+        "SponsorEmail":"kevin@kevin.com",
+        "MaxGroupSize":1,
+        "Members":[]
+    },
+    {
+        "GroupId":6,
+        "GroupName":"Touche Amore",
+        "OrganizationName":"Deathwish",
+        "SponsorName":"Kevin Ruse",
+        "SponsorPhone":"555-5555",
+        "SponsorEmail":"kevin@kevin.com",
+        "MaxGroupSize":1,
+        "Members":[]
+    }
+]
