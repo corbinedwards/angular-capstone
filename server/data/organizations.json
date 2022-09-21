@@ -1,0 +1,22 @@
+[
+	{
+		"LabelName": "XL Recordings",
+		"LabelId": "1",
+		"Description": "This is organization 1"
+	},
+	{
+		"LabelName": "Brainfeeder",
+		"LabelId": "2",
+		"Description": "This is organization 2"
+    },
+    {
+		"LabelName": "Rise Records",
+		"LabelId": "3",
+		"Description": "This is organization 3" 
+	},
+	{
+		"LabelName": "Sub Pop",
+		"LabelId": "4",
+		"Description": "This is organization 4"
+	}
+]
