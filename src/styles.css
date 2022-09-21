@@ -3,3 +3,7 @@ body {
     margin: 0;
     font-family: 'arial', 'sans-serif';
 }
+
+.app-content {
+    padding: 1rem 2rem 1rem 2rem;
+}
