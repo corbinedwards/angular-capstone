@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { ButtonModule } from 'primeng/button';
 import { GalleriaModule } from 'primeng/galleria';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
+import { TableModule } from 'primeng/table';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,11 +27,15 @@ import { SearchResultsComponent } from './search-results/search-results.componen
     AppRoutingModule,
     BrowserModule,
     ButtonModule,
-    GalleriaModule,
     DropdownModule,
-    InputTextModule
+    GalleriaModule,
+    HttpClientModule,
+    InputTextModule,
+    TableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+  constructor(private http: HttpClient) {}
+}

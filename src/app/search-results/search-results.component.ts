@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Band } from '../models/band';
+import { BandsService } from '../services/bands.service';
 
 @Component({
   selector: 'app-search-results',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchResultsComponent implements OnInit {
 
-  constructor() { }
+  bands: Band[] = [];
+
+  constructor(private bandsService: BandsService) { }
 
   ngOnInit(): void {
+    this.bandsService.getAllBands().subscribe((data: Band[]) => this.bands = data);
   }
 
 }
