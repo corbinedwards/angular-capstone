@@ -6,6 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { GalleriaModule } from 'primeng/galleria';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TableModule } from 'primeng/table';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -31,6 +32,7 @@ import { SearchResultsComponent } from './search-results/search-results.componen
     GalleriaModule,
     HttpClientModule,
     InputTextModule,
+    ProgressSpinnerModule,
     TableModule
   ],
   providers: [],

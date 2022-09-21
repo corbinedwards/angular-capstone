@@ -1,5 +1,13 @@
 <section class="app-content">
     <h1 class="text-5xl">Results</h1>
+    <div *ngIf="isLoading; else loadFinished" class="flex justify-content-center">
+        <p-progressSpinner></p-progressSpinner>
+    </div>
+    <div class="mt-5 mb-5">
+        <a class="text-primary active:text-red-500 underline" id="view-all-link" (click)="getAllBands()">View All Bands...</a>
+    </div>
+</section>
+<ng-template #loadFinished>
     <div *ngIf="bands.length > 0; else noResults">
         <p-table [value]="bands" class="mt-5">
             <ng-template pTemplate="header">
@@ -18,10 +26,7 @@
             </ng-template>
         </p-table>
     </div>
-    <div class="mt-5 mb-5">
-        <a class="text-primary active:text-red-500 underline" id="view-all-link" (click)="getAllBands()">View All Bands...</a>
-    </div>
-</section>
+</ng-template>
 <ng-template #noResults>
     <div class="surface-50 w-full p-3">
         <h1 class="text-center">No results found.</h1>

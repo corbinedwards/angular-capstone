@@ -12,7 +12,7 @@ export class SearchResultsComponent implements OnInit {
 
   bands: Band[] = [];
 
-  private isLoading: boolean = true;
+  isLoading: boolean = true;
 
   constructor(
     public router: Router,
@@ -23,7 +23,7 @@ export class SearchResultsComponent implements OnInit {
   }
 
   getAllBands(): void {
-    this.isLoading = false;
+    this.isLoading = true;
     this.bands = [];
     this.bandsService.getAllBands().subscribe(
       {
