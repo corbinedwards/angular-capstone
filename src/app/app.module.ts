@@ -10,12 +10,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SearchComponent } from './search/search.component';
+import { HomeComponent } from './home/home.component';
+import { SearchResultsComponent } from './search-results/search-results.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    SearchComponent
+    SearchComponent,
+    HomeComponent,
+    SearchResultsComponent
   ],
   imports: [
     AppRoutingModule,

@@ -1,0 +1,23 @@
+<header class="home-landing flex flex-column h-screen w-full bg-gray-900">
+    <div class="align-self-center flex-grow-1 flex flex-column justify-content-center align-items-center gap-4 text-center">
+        <h1 class="m-0 text-7xl md:text-8xl text-white">BATTLE OF THE BANDS</h1>
+        <span class="text-2xl md:text-3xl text-white">The most exciting thing in the world.</span>
+        <button pButton type="button" label="Register Now" class="p-button-secondary text-2xl w-4"></button>
+    </div>
+</header>
+<main class="flex flex-column justify-content-evenly gap-3 p-3 w-full">
+    <section>
+        <h1 class="text-center text-6xl">PARTICIPATING LABELS</h1>
+        <div class="flex flex-wrap justify-content-center m-auto w-6 gap-6">
+            <ng-container *ngTemplateOutlet="labellogos; context: {src: '../../assets/images/log-deathwish.jpg', alt:'Deathwish Inc.'}"></ng-container>
+            <ng-container *ngTemplateOutlet="labellogos; context: {src: '../../assets/images/logo-subpop.jpg', alt:'Subpop'}"></ng-container>
+            <ng-container *ngTemplateOutlet="labellogos; context: {src: '../../assets/images/logo-rise-records.jpg', alt:'Rise Records'}"></ng-container>
+            <ng-container *ngTemplateOutlet="labellogos; context: {src: '../../assets/images/logo-brainfeeder.jpg', alt:'Brainfeeder'}"></ng-container>
+        </div>
+    </section>
+</main>
+<ng-template #labellogos let-src="src" let-alt="alt">
+    <div class="m-auto lg:w-4 logo-container">
+        <img class="max-w-full h-auto" [src]="src" alt="{{ alt }}">
+    </div>
+</ng-template>
