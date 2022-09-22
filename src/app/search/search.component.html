@@ -5,7 +5,12 @@
     <!-- <p-dropdown class="search-type" [options]="searchOptions"></p-dropdown> -->
     <span class="p-input-icon-left">
         <i class="pi pi-search"></i>
-        <input pInputText type="text" formControlName="query" placeholder="Search Bands..." />
+        <input pInputText 
+            id="searchBox" 
+            type="text" 
+            formControlName="query" 
+            placeholder="Search Bands..."
+            (keydown)="onKeyDown($event)" />
         <button pButton 
             type="button" 
             label="Search" 

@@ -23,6 +23,10 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Enter') this.onSearch(this.searchForm.value);
+  }
+
   onSearch(formValues: any) {
     this.router.navigate(['/results', { query: formValues.query }]);
   }
