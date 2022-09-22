@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Band } from '../models/band';
 import { BandsService } from '../services/bands.service';
 
@@ -11,15 +11,21 @@ import { BandsService } from '../services/bands.service';
 export class SearchResultsComponent implements OnInit {
 
   bands: Band[] = [];
-
   isLoading: boolean = true;
+
+  private searchQuery: string = '';
 
   constructor(
     public router: Router,
+    public route: ActivatedRoute,
     private bandsService: BandsService
-  ) { }
+  ) {
+   }
 
   ngOnInit(): void {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.searchQuery = (this.route.snapshot.paramMap.get('query') ?? '').toLowerCase();
+    this.getAllBands();
   }
 
   getAllBands(): void {
@@ -27,11 +33,20 @@ export class SearchResultsComponent implements OnInit {
     this.bands = [];
     this.bandsService.getAllBands().subscribe(
       {
-        next: (data: Band[]) => this.bands = data,
+        next: (data: Band[]) =>  { 
+          this.bands = data;
+          if (this.searchQuery) this.bands = this.bands.filter(band => band.GroupName.toLowerCase() === this.searchQuery);
+        },
         error: (err) => console.log(err.message),
-        complete: () => this.isLoading = false
+        complete: () =>  {
+          this.isLoading = false
+        }
       }
     );
+  }
+
+  viewAllBands(): void {
+    this.router.navigate(['/results']);
   }
 
 }
