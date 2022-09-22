@@ -14,18 +14,19 @@ export class SearchResultsComponent implements OnInit {
   isLoading: boolean = true;
 
   private searchQuery: string = '';
+  private labelId: string = '';
 
   constructor(
     public router: Router,
     public route: ActivatedRoute,
     private bandsService: BandsService
-  ) {
-   }
+  ) { }
 
   ngOnInit(): void {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.searchQuery = (this.route.snapshot.paramMap.get('query') ?? '').toLowerCase();
-    this.getAllBands();
+    this.labelId = (this.route.snapshot.paramMap.get('label') ?? '').toLowerCase();
+    (this.labelId) ? this.getBandsByLabel(): this.getAllBands();
   }
 
   getAllBands(): void {
@@ -38,11 +39,21 @@ export class SearchResultsComponent implements OnInit {
           if (this.searchQuery) this.bands = this.bands.filter(band => band.GroupName.toLowerCase() === this.searchQuery);
         },
         error: (err) => console.log(err.message),
-        complete: () =>  {
-          this.isLoading = false
-        }
+        complete: () => this.isLoading = false
       }
     );
+  }
+
+  getBandsByLabel(): void {
+    this.isLoading = true;
+    this.bands = [];
+    this.bandsService.getBandsByOrg(this.labelId).subscribe(
+      {
+        next: (data: Band[]) => this.bands = data,
+        error: (err) => console.log(err.message),
+        complete: () => this.isLoading = false
+      }
+    )
   }
 
   viewAllBands(): void {

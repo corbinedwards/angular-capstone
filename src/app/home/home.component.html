@@ -8,14 +8,14 @@
 <section class="app-content">
     <h1 class="text-center text-6xl">PARTICIPATING LABELS</h1>
     <div class="flex flex-wrap justify-content-center m-auto w-6 gap-6">
-        <ng-container *ngTemplateOutlet="labellogos; context: {src: '../../assets/images/log-deathwish.jpg', alt:'Deathwish Inc.'}"></ng-container>
-        <ng-container *ngTemplateOutlet="labellogos; context: {src: '../../assets/images/logo-subpop.jpg', alt:'Subpop'}"></ng-container>
-        <ng-container *ngTemplateOutlet="labellogos; context: {src: '../../assets/images/logo-rise-records.jpg', alt:'Rise Records'}"></ng-container>
-        <ng-container *ngTemplateOutlet="labellogos; context: {src: '../../assets/images/logo-brainfeeder.jpg', alt:'Brainfeeder'}"></ng-container>
+        <ng-container *ngTemplateOutlet="labellogos; context: {src: '../../assets/images/log-deathwish.jpg', alt:'Deathwish Inc.', labelId: '1'}"></ng-container>
+        <ng-container *ngTemplateOutlet="labellogos; context: {src: '../../assets/images/logo-subpop.jpg', alt:'Subpop', labelId: '4'}"></ng-container>
+        <ng-container *ngTemplateOutlet="labellogos; context: {src: '../../assets/images/logo-rise-records.jpg', alt:'Rise Records', labelId: '3'}"></ng-container>
+        <ng-container *ngTemplateOutlet="labellogos; context: {src: '../../assets/images/logo-brainfeeder.jpg', alt:'Brainfeeder', labelId: '2'}"></ng-container>
     </div>
 </section>
-<ng-template #labellogos let-src="src" let-alt="alt">
-    <div class="m-auto lg:w-4 logo-container">
+<ng-template #labellogos let-src="src" let-alt="alt" let-labelId="labelId">
+    <a class="m-auto lg:w-4 logo-container" (click)="searchByLabel(labelId)">
         <img class="max-w-full h-auto" [src]="src" alt="{{ alt }}">
-    </div>
+    </a>
 </ng-template>
