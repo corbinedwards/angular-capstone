@@ -1,4 +1,4 @@
-<p-table [value]="members">
+<p-table #membersTable [value]="members" dataKey="MemberId" editMode="row" responsiveLayout="scroll">
     <ng-template pTemplate="header">
         <tr>
             <th>Name</th>
@@ -7,14 +7,44 @@
             <th></th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-member>
-        <tr>
-            <td>{{ member.MemberName }}</td>
-            <td>{{ member.MemberEmail }}</td>
-            <td>{{ member.MemberPhone }}</td>
+    <ng-template pTemplate="body" let-member let-editing="editing">
+        <tr [pEditableRow]="member">
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="member.MemberName">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{ member.MemberName }}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="member.MemberEmail">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{ member.MemberEmail }}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input pInputText type="text" [(ngModel)]="member.MemberPhone">
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{ member.MemberPhone }}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+            <td>
+                <button *ngIf="editing" pButton type="button" label="Accept" pSaveEditableRow (click)="saveMember()" class="p-button-rounded p-button-success"></button>
+            </td>
         </tr>
     </ng-template>
     <ng-template pTemplate="summary">
-        <span class="underline text-primary pointer">+ Add Member</span>
+        <span class="underline text-primary pointer" (click)="addMember()">+ Add Member</span>
     </ng-template>
 </p-table>

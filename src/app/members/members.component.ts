@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Table } from 'primeng/table';
 import { Member } from '../models/member';
 
 @Component({
@@ -8,18 +10,42 @@ import { Member } from '../models/member';
 })
 export class MembersComponent implements OnInit {
 
+  editForm!: FormGroup;
   members: Member[] = [];
   maxMembers: number = 1;
+  @ViewChild('membersTable') table: Table | undefined;
 
-  constructor() { }
+  constructor(fb: FormBuilder) { 
+    this.editForm = fb.group({
+      memberName: ['', Validators.required],
+      memberEmail: [''],
+      memberPhone: ['']
+    });
+  }
 
   ngOnInit(): void {
     this.members.push({
-      MemberId: 0,
+      MemberId: 1,
       MemberEmail: 'test@gmail.com',
       MemberName: 'Test Smith',
       MemberPhone: '501-654-5555'
     });
+  }
+
+  addMember(): void {
+    this.members.push({
+      MemberId: 0,
+      MemberEmail: '',
+      MemberName: '',
+      MemberPhone: ''
+    });
+    const newRow = this.table?.value[this.table?.value.length - 1];
+    console.log(newRow);
+    this.table?.initRowEdit(newRow);
+  }
+
+  saveMember(): void {
+
   }
 
 }
