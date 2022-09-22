@@ -1,8 +1,22 @@
-<div class="flex">
+<form [formGroup]="searchForm" 
+    id="searchForm" 
+    class="flex"
+    novalidate>
     <!-- <p-dropdown class="search-type" [options]="searchOptions"></p-dropdown> -->
     <span class="p-input-icon-left">
         <i class="pi pi-search"></i>
-        <input pInputText type="text" placeholder="Search..." />
-        <button pButton type="button" label="Search" class="p-button-secondary" routerLink="results"></button>
+        <input pInputText 
+            id="searchBox" 
+            type="text" 
+            formControlName="query" 
+            placeholder="Search Bands..."
+            (keydown)="onKeyDown($event)" />
+        <button pButton 
+            type="button" 
+            label="Search" 
+            title="Search Bands"
+            class="p-button-secondary" 
+            (click)="onSearch(searchForm.value)">
+        </button>
     </span>
-</div>
+</form>

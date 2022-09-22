@@ -6,6 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { GalleriaModule } from 'primeng/galleria';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TableModule } from 'primeng/table';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -14,6 +15,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SearchComponent } from './search/search.component';
 import { HomeComponent } from './home/home.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -28,9 +30,12 @@ import { SearchResultsComponent } from './search-results/search-results.componen
     BrowserModule,
     ButtonModule,
     DropdownModule,
+    FormsModule,
     GalleriaModule,
     HttpClientModule,
     InputTextModule,
+    ProgressSpinnerModule,
+    ReactiveFormsModule,
     TableModule
   ],
   providers: [],
