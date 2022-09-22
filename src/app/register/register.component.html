@@ -1,0 +1,26 @@
+<section class="app-content">
+    <h1 class="text-5xl">Register New Band</h1>
+    <form [formGroup]="registerForm">
+        <ng-container *ngTemplateOutlet="textInput; context: { name: 'Band Name', id: 'bandName' }"></ng-container>
+        <div class="register-field">
+            <label for="label">Label</label>
+            <p-dropdown [options]="labels" 
+                [(ngModel)]="selectedLabel"
+                optionLabel="OrganizationName" 
+                formControlName="label"
+                placeholder="Select a Label"
+                id="label">
+            </p-dropdown>
+        </div>
+        <ng-container *ngTemplateOutlet="textInput; context: { name: 'Sponsor Name', id: 'sponsorName' }"></ng-container>
+        <ng-container *ngTemplateOutlet="textInput; context: { name: 'Sponsor Phone', id: 'sponsorPhone' }"></ng-container>
+        <ng-container *ngTemplateOutlet="textInput; context: { name: 'Sponsor Email', id: 'sponsorEmail' }"></ng-container>
+    </form>
+</section>
+<ng-template #textInput let-name="name" let-id="id">
+    <div class="register-field">
+        <label for="{{ id }}">{{ name }}</label>
+        <input id="{{ id }}" formControlName="{{ id }}" type="text" pInputText>
+    </div>
+</ng-template>
+
