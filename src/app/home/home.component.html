@@ -15,7 +15,7 @@
     </div>
 </section>
 <ng-template #labellogos let-src="src" let-alt="alt" let-labelId="labelId">
-    <a class="m-auto lg:w-4 logo-container" (click)="searchByLabel(labelId)">
+    <a class="m-auto lg:w-4 pointer" (click)="searchByLabel(labelId)">
         <img class="max-w-full h-auto" [src]="src" alt="{{ alt }}">
     </a>
 </ng-template>

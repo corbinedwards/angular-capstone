@@ -1,0 +1,20 @@
+<p-table [value]="members">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-member>
+        <tr>
+            <td>{{ member.MemberName }}</td>
+            <td>{{ member.MemberEmail }}</td>
+            <td>{{ member.MemberPhone }}</td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        <span class="underline text-primary pointer">+ Add Member</span>
+    </ng-template>
+</p-table>

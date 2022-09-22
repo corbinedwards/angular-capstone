@@ -16,6 +16,7 @@ import { SearchComponent } from './search/search.component';
 import { HomeComponent } from './home/home.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MembersComponent } from './members/members.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NavbarComponent,
     SearchComponent,
     HomeComponent,
-    SearchResultsComponent
+    SearchResultsComponent,
+    MembersComponent
   ],
   imports: [
     AppRoutingModule,
