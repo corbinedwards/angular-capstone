@@ -1,5 +1,5 @@
 <section class="app-content">
-    <h1 class="text-5xl">Results</h1>
+    <app-page-header [text]="headerText"></app-page-header>
     <div *ngIf="isLoading; else loadFinished" class="flex justify-content-center">
         <p-progressSpinner></p-progressSpinner>
     </div>

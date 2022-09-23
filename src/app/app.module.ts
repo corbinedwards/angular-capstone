@@ -19,6 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MembersComponent } from './members/members.component';
 import { RegisterComponent } from './register/register.component';
 import { HttpClientModule } from '@angular/common/http';
+import { PageHeaderComponent } from './page-header/page-header.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { HttpClientModule } from '@angular/common/http';
     HomeComponent,
     SearchResultsComponent,
     MembersComponent,
-    RegisterComponent
+    RegisterComponent,
+    PageHeaderComponent
   ],
   imports: [
     AppRoutingModule,

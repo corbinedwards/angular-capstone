@@ -11,6 +11,7 @@ import { BandsService } from '../services/bands.service';
 export class SearchResultsComponent implements OnInit {
 
   bands: Band[] = [];
+  headerText: string = 'Searching...';
   isLoading: boolean = true;
 
   private searchQuery: string = '';
@@ -39,7 +40,10 @@ export class SearchResultsComponent implements OnInit {
           if (this.searchQuery) this.bands = this.bands.filter(band => band.GroupName.toLowerCase() === this.searchQuery);
         },
         error: (err) => console.log(err.message),
-        complete: () => this.isLoading = false
+        complete: () => {
+          this.isLoading = false;
+          this.headerText = (this.searchQuery) ? `Search Results - '${this.searchQuery}'` : `All Bands`;
+        }
       }
     );
   }
@@ -51,7 +55,12 @@ export class SearchResultsComponent implements OnInit {
       {
         next: (data: Band[]) => this.bands = data,
         error: (err) => console.log(err.message),
-        complete: () => this.isLoading = false
+        complete: () => {
+          this.isLoading = false
+          if (this.bands) {
+            this.headerText = `Search Results - '${this.bands[0].OrganizationName}'`;
+          }
+        }
       }
     )
   }
