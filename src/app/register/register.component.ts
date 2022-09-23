@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Band } from '../models/band';
 import { Label } from '../models/label';
 import { BandsService } from '../services/bands.service';
@@ -24,15 +25,14 @@ export class RegisterComponent implements OnInit {
     Members: []
   }
 
-  constructor(private bandsService: BandsService) { 
+  constructor(private bandsService: BandsService, private router: Router) { 
     this.registerForm = new FormGroup({
       bandName: new FormControl('', { validators: Validators.required }),
       label: new FormControl(null, { validators: Validators.required }),
       sponsorName: new FormControl('', { validators: Validators.required }),
       sponsorPhone: new FormControl('', { validators: Validators.required }),
       sponsorEmail: new FormControl('', { validators: Validators.email }),
-      maxMembers: new FormControl(1, { validators: Validators.min(1) }),
-      members: new FormControl([])
+      maxMembers: new FormControl(1, { validators: Validators.min(1) })
     }, 
     { updateOn: 'blur' });
   }
@@ -50,11 +50,13 @@ export class RegisterComponent implements OnInit {
       this.band.SponsorPhone = value.sponsorPhone;
       this.band.SponsorEmail = value.sponsorEmail;
       this.band.MaxGroupSize = value.maxMembers;
-      console.log(this.registerForm.controls['members'].touched);
     });
   }
 
   onSubmit(formValues: any): void {
-    console.log(this.registerForm.value);
+    this.bandsService.createNewBand(this.band).subscribe({
+      next: (band) => this.router.navigate(['results', { query: band.GroupName }]),
+      error: (err) => console.log(err.message)
+    })
   }
 }

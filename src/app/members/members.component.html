@@ -40,7 +40,14 @@
                 </p-cellEditor>
             </td>
             <td>
-                <button *ngIf="editing" pButton type="button" label="Accept" pSaveEditableRow (click)="saveMember(member)" class="p-button-rounded p-button-success"></button>
+                <button *ngIf="editing" 
+                    pButton 
+                    pSaveEditableRow
+                    type="button" 
+                    label="Accept" 
+                    class="p-button-rounded p-button-success"
+                    (click)="saveMember(member)">
+                </button>
             </td>
         </tr>
     </ng-template>

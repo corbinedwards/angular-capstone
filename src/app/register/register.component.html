@@ -21,6 +21,11 @@
             </p-dropdown>
             <ng-container *ngTemplateOutlet="warning; context: { control: 'label', message: 'No Label selected.' }"></ng-container>
         </div>
+        <div class="register-field w-2">
+            <label for="maxMembers">Max Members</label>
+            <input id="maxMembers" formControlName="maxMembers" type="text" pInputText>
+            <ng-container *ngTemplateOutlet="warning; context: { control: 'maxMembers', message: 'Number of members must be greater than 0.' }"></ng-container>
+        </div>
         <h3>Sponsor Info</h3>
         <div class="register-field">
             <label for="sponsorName">Sponsor Name</label>
@@ -36,16 +41,6 @@
             <label for="sponsorEmail">Sponsor Email</label>
             <input id="sponsorEmail" formControlName="sponsorEmail" type="text" pInputText>
             <ng-container *ngTemplateOutlet="warning; context: { control: 'sponsorEmail', message: 'Sponsor Email not valid.' }"></ng-container>
-        </div>
-        <h3>Members</h3>
-        <div class="register-field w-2">
-            <label for="maxMembers">Max Members</label>
-            <input id="maxMembers" formControlName="maxMembers" type="text" pInputText>
-            <ng-container *ngTemplateOutlet="warning; context: { control: 'maxMembers', message: 'Number of members must be greater than 0.' }"></ng-container>
-        </div>
-        <div class="register-field w-full">
-            <app-members [band]="band" formControlName="members"></app-members>
-            <ng-container *ngTemplateOutlet="warning; context: { control: 'members', message: 'Maximum number of members exceeded.' }"></ng-container>
         </div>
         <p-button type="submit" label="Submit" class="mt-4"></p-button>
     </form>
