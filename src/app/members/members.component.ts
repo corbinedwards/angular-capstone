@@ -11,28 +11,16 @@ import { Member } from '../models/member';
 })
 export class MembersComponent implements OnInit {
 
-  editForm!: FormGroup;
   members: Member[] = [];
   maxMembers: number = 1;
 
   @Input() band!: Band;
   @ViewChild('membersTable') table: Table | undefined;
 
-  constructor(fb: FormBuilder) { 
-    this.editForm = fb.group({
-      memberName: ['', Validators.required],
-      memberEmail: [''],
-      memberPhone: ['']
-    });
+  constructor() {
   }
 
   ngOnInit(): void {
-    this.band?.Members.push({
-      MemberId: 1,
-      MemberEmail: 'test@gmail.com',
-      MemberName: 'Test Smith',
-      MemberPhone: '501-654-5555'
-    });
   }
 
   addMember(): void {
@@ -46,7 +34,7 @@ export class MembersComponent implements OnInit {
     this.table?.initRowEdit(newRow);
   }
 
-  saveMember(): void {
+  saveMember(member: any): void {
     
   }
 
