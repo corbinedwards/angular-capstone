@@ -14,16 +14,7 @@ export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
   labels: Label[] =[];
   selectedLabel!: Label;
-  band: Band = {
-    GroupId: 0,
-    GroupName: '',
-    OrganizationName: '',
-    SponsorName: '',
-    SponsorPhone: '',
-    SponsorEmail: '',
-    MaxGroupSize: 1,
-    Members: []
-  }
+  band: Band = new Band();
 
   constructor(private bandsService: BandsService, private router: Router) { 
     this.registerForm = new FormGroup({
