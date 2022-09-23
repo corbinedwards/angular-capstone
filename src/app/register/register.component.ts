@@ -26,13 +26,15 @@ export class RegisterComponent implements OnInit {
 
   constructor(private bandsService: BandsService) { 
     this.registerForm = new FormGroup({
-      bandName: new FormControl(null, { validators: Validators.required }),
+      bandName: new FormControl('', { validators: Validators.required }),
       label: new FormControl(null, { validators: Validators.required }),
-      sponsorName: new FormControl(null, { validators: Validators.required }),
-      sponsorPhone: new FormControl(null, { validators: Validators.required }),
-      sponsorEmail: new FormControl(null, { validators: Validators.email }),
-      maxMembers: new FormControl(1, { validators: Validators.min(1) })
-    });
+      sponsorName: new FormControl('', { validators: Validators.required }),
+      sponsorPhone: new FormControl('', { validators: Validators.required }),
+      sponsorEmail: new FormControl('', { validators: Validators.email }),
+      maxMembers: new FormControl(1, { validators: Validators.min(1) }),
+      members: new FormControl([])
+    }, 
+    { updateOn: 'blur' });
   }
 
   ngOnInit(): void {
@@ -40,9 +42,19 @@ export class RegisterComponent implements OnInit {
       next: (labels: Label[]) => this.labels = labels,
       error: (err) => console.log(err.message)
     });
+    
+    this.registerForm.valueChanges.subscribe(value => {
+      this.band.GroupName = value.bandName;
+      this.band.OrganizationName = value.label?.OrganizationName;
+      this.band.SponsorName = value.sponsorName;
+      this.band.SponsorPhone = value.sponsorPhone;
+      this.band.SponsorEmail = value.sponsorEmail;
+      this.band.MaxGroupSize = value.maxMembers;
+      console.log(this.registerForm.controls['members'].touched);
+    });
   }
 
   onSubmit(formValues: any): void {
-    
+    console.log(this.registerForm.value);
   }
 }

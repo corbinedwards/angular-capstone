@@ -4,7 +4,6 @@
         class="flex flex-column gap-3 surface-50 border-round xl:w-7 p-3" 
         (ngSubmit)="onSubmit(registerForm.value)"
     >
-        <!-- <ng-container *ngTemplateOutlet="textInput; context: { name: 'Band Name', id: 'bandName' }"></ng-container> -->
         <h3>Band Info</h3>
         <div class="register-field">
             <label for="bandName">Band Name</label>
@@ -14,7 +13,6 @@
         <div class="register-field">
             <label for="label">Label</label>
             <p-dropdown [options]="labels" 
-                [(ngModel)]="selectedLabel"
                 optionLabel="OrganizationName" 
                 formControlName="label"
                 placeholder="Select a Label"
@@ -45,22 +43,13 @@
             <input id="maxMembers" formControlName="maxMembers" type="text" pInputText>
             <ng-container *ngTemplateOutlet="warning; context: { control: 'maxMembers', message: 'Number of members must be greater than 0.' }"></ng-container>
         </div>
-        <!-- <ng-container *ngTemplateOutlet="textInput; context: { name: 'Sponsor Name', id: 'sponsorName' }"></ng-container>
-        <ng-container *ngTemplateOutlet="textInput; context: { name: 'Sponsor Phone', id: 'sponsorPhone' }"></ng-container>
-        <ng-container *ngTemplateOutlet="textInput; context: { name: 'Sponsor Email', id: 'sponsorEmail' }"></ng-container>
-        <ng-container *ngTemplateOutlet="textInput; context: { name: 'Max Members', id: 'maxMembers' }"></ng-container> -->
         <div class="register-field w-full">
-            <app-members [band]="band"></app-members>
+            <app-members [band]="band" formControlName="members"></app-members>
+            <ng-container *ngTemplateOutlet="warning; context: { control: 'members', message: 'Maximum number of members exceeded.' }"></ng-container>
         </div>
         <p-button type="submit" label="Submit" class="mt-4"></p-button>
     </form>
 </section>
-<!-- <ng-template #textInput let-name="name" let-id="id">
-    <div class="register-field">
-        <label for="{{ id }}">{{ name }}</label>
-        <input id="{{ id }}" [formControlName]="id" type="text" pInputText>
-    </div>
-</ng-template> -->
 <ng-template #warning let-control="control" let-message="message">
     <small *ngIf="!registerForm.controls[control].valid && registerForm.controls[control].touched" 
         id="{{ control }}-help" 

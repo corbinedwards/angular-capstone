@@ -1,5 +1,5 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
+import { AbstractControl, ControlContainer, ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { Table } from 'primeng/table';
 import { Band } from '../models/band';
 import { Member } from '../models/member';
@@ -7,20 +7,35 @@ import { Member } from '../models/member';
 @Component({
   selector: 'app-members',
   templateUrl: './members.component.html',
-  styleUrls: ['./members.component.css']
+  styleUrls: ['./members.component.css'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => MembersComponent),
+      multi: true
+    }
+  ],
 })
-export class MembersComponent implements OnInit {
-
-  members: Member[] = [];
-  maxMembers: number = 1;
+export class MembersComponent implements OnInit, ControlValueAccessor {
 
   @Input() band!: Band;
+  @Input() formControlName!: string;
   @ViewChild('membersTable') table: Table | undefined;
 
-  constructor() {
+  control!: AbstractControl | null;
+  members: Member[] = [];
+  maxMembers: number = 1;
+  touched: boolean = false;
+  onChange = (member: any) => {};
+  onTouched = () => {};
+
+  constructor( private controlContainer: ControlContainer ) {
   }
 
   ngOnInit(): void {
+    if (this.controlContainer && this.formControlName) {
+      this.control = this.controlContainer.control?.get(this.formControlName) ?? null;
+    }
   }
 
   addMember(): void {
@@ -35,7 +50,27 @@ export class MembersComponent implements OnInit {
   }
 
   saveMember(member: any): void {
-    
+    this.markAsTouched();
+    this.members.push(member);
+    this.onChange(this.members);
+  }
+
+  registerOnChange(fn: any){
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: any){
+    this.onTouched = fn;
+  }
+  writeValue(members: any){
+    this.members = members;
+  }
+
+  markAsTouched() {
+    if (!this.touched) {
+      this.onTouched();
+      this.touched = true;
+    }
   }
 
 }
