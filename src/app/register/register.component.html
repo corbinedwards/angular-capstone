@@ -1,0 +1,54 @@
+<section class="app-content">
+    <h1 class="text-5xl">Register New Band</h1>
+    <form [formGroup]="registerForm" 
+        class="flex flex-column gap-3 surface-50 border-round xl:w-7 p-3" 
+        (ngSubmit)="onSubmit(registerForm.value)"
+    >
+        <h3>Band Info</h3>
+        <div class="register-field">
+            <label for="bandName">Band Name</label>
+            <input id="bandName" formControlName="bandName" aria-describedby="bandName-help" type="text" pInputText>
+            <ng-container *ngTemplateOutlet="warning; context: { control: 'bandName', message: 'Band Name not valid.' }"></ng-container>
+        </div>
+        <div class="register-field">
+            <label for="label">Label</label>
+            <p-dropdown [options]="labels" 
+                optionLabel="OrganizationName" 
+                formControlName="label"
+                placeholder="Select a Label"
+                id="label"
+                styleClass="w-6">
+            </p-dropdown>
+            <ng-container *ngTemplateOutlet="warning; context: { control: 'label', message: 'No Label selected.' }"></ng-container>
+        </div>
+        <div class="register-field w-2">
+            <label for="maxMembers">Max Members</label>
+            <input id="maxMembers" formControlName="maxMembers" type="text" pInputText>
+            <ng-container *ngTemplateOutlet="warning; context: { control: 'maxMembers', message: 'Number of members must be greater than 0.' }"></ng-container>
+        </div>
+        <h3>Sponsor Info</h3>
+        <div class="register-field">
+            <label for="sponsorName">Sponsor Name</label>
+            <input id="sponsorName" formControlName="sponsorName" type="text" pInputText>
+            <ng-container *ngTemplateOutlet="warning; context: { control: 'sponsorName', message: 'Sponsor Name not valid.' }"></ng-container>
+        </div>
+        <div class="register-field">
+            <label for="sponsorPhone">Sponsor Phone</label>
+            <input id="sponsorPhone" formControlName="sponsorPhone" type="text" pInputText>
+            <ng-container *ngTemplateOutlet="warning; context: { control: 'sponsorPhone', message: 'Sponsor Phone not valid.' }"></ng-container>
+        </div>
+        <div class="register-field">
+            <label for="sponsorEmail">Sponsor Email</label>
+            <input id="sponsorEmail" formControlName="sponsorEmail" type="text" pInputText>
+            <ng-container *ngTemplateOutlet="warning; context: { control: 'sponsorEmail', message: 'Sponsor Email not valid.' }"></ng-container>
+        </div>
+        <p-button type="submit" label="Submit" class="mt-4"></p-button>
+    </form>
+</section>
+<ng-template #warning let-control="control" let-message="message">
+    <small *ngIf="!registerForm.controls[control].valid && registerForm.controls[control].touched" 
+        id="{{ control }}-help" 
+        class="p-error block">
+        {{ message }}
+    </small>
+</ng-template>

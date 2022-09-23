@@ -15,5 +15,6 @@ export class AppComponent {
     { name: 'carousel-2.jpg', title: 'Performance', caption: 'Yep. Music!' },
     { name: 'carousel-3.jpg', title: 'Sign-up Today!', caption: 'Click sign-up, sir' }
   ];
+  // TODO: implement title service
   title = 'capstone';
 }

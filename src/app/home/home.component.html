@@ -2,7 +2,7 @@
     <div class="align-self-center flex-grow-1 flex flex-column justify-content-center align-items-center gap-4 text-center">
         <h1 class="m-0 text-7xl md:text-8xl text-white">BATTLE OF THE BANDS</h1>
         <span class="text-2xl md:text-3xl text-white">The most exciting thing in the world.</span>
-        <button pButton type="button" label="Register Now" class="p-button-secondary text-2xl w-4"></button>
+        <button pButton type="button" label="Register Now" class="p-button-secondary text-2xl w-4" routerLink="register"></button>
     </div>
 </header>
 <section class="app-content">
@@ -15,7 +15,7 @@
     </div>
 </section>
 <ng-template #labellogos let-src="src" let-alt="alt" let-labelId="labelId">
-    <a class="m-auto lg:w-4 logo-container" (click)="searchByLabel(labelId)">
+    <a class="m-auto lg:w-4 pointer" (click)="searchByLabel(labelId)">
         <img class="max-w-full h-auto" [src]="src" alt="{{ alt }}">
     </a>
 </ng-template>
