@@ -46,7 +46,7 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(formValues: any): void {
     this.bandsService.createNewBand(this.band).subscribe({
-      next: (band) => this.router.navigate(['results', { query: band.GroupName }]),
+      next: (band) => this.router.navigate(['details', { id: band.GroupId }]),
       error: (err) => console.log(err.message)
     })
   }
