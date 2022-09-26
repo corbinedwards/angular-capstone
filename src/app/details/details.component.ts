@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Band } from '../models/band';
 import { BandsService } from '../services/bands.service';
@@ -14,7 +15,8 @@ export class DetailsComponent implements OnInit {
 
   constructor(
     public route: ActivatedRoute,
-    private bandsService: BandsService
+    private bandsService: BandsService,
+    private titleService: Title
   ) { }
 
   ngOnInit(): void {
@@ -23,7 +25,8 @@ export class DetailsComponent implements OnInit {
       this.bandsService.getBandById(bandId)
       .subscribe({
         next: (band) => this.band = band,
-        error: (err) => console.log(err.message)
+        error: (err) => console.log(err.message),
+        complete: () => this.titleService.setTitle(`${this.band.GroupName} - Battle of the Bands`)
       });
     })
     

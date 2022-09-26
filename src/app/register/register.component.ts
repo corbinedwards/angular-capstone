@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Band } from '../models/band';
 import { Label } from '../models/label';
@@ -18,7 +19,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private bandsService: BandsService, 
-    private router: Router
+    private router: Router,
+    private titleService: Title
   ) { 
     this.registerForm = new FormGroup({
       bandName: new FormControl('', { validators: Validators.required }),
@@ -32,6 +34,8 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.titleService.setTitle('Register Band - Battle of the Bands');
+    
     this.bandsService.getLabels().subscribe({
       next: (labels: Label[]) => this.labels = labels,
       error: (err) => console.log(err.message)

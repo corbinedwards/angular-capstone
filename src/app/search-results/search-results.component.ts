@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Band } from '../models/band';
 import { BandsService } from '../services/bands.service';
@@ -20,7 +21,8 @@ export class SearchResultsComponent implements OnInit {
   constructor(
     public router: Router,
     public route: ActivatedRoute,
-    private bandsService: BandsService
+    private bandsService: BandsService,
+    private titleService: Title
   ) { }
 
   ngOnInit(): void {
@@ -42,8 +44,10 @@ export class SearchResultsComponent implements OnInit {
         },
         error: (err) => console.log(err.message),
         complete: () => {
+          const pageTitle = (this.searchQuery) ? `Search Results - '${this.searchQuery}'` : 'All Bands';
           this.isLoading = false;
-          this.headerText = (this.searchQuery) ? `Search Results - '${this.searchQuery}'` : `All Bands`;
+          this.headerText = pageTitle;
+          this.titleService.setTitle(`${pageTitle} - Battle of the Bands`);
         }
       }
     );
@@ -64,6 +68,7 @@ export class SearchResultsComponent implements OnInit {
         }
       }
     )
+    this.titleService.setTitle('Search Results - Battle of the Bands');
   }
 
   navigateToDetails(band: Band): void {
