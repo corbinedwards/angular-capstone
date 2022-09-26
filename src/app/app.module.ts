@@ -7,6 +7,7 @@ import { GalleriaModule } from 'primeng/galleria';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { PanelModule } from 'primeng/panel';
 import { TableModule } from 'primeng/table';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -44,6 +45,7 @@ import { DetailsComponent } from './details/details.component';
     GalleriaModule,
     HttpClientModule,
     InputTextModule,
+    PanelModule,
     ProgressSpinnerModule,
     ReactiveFormsModule,
     TableModule
