@@ -20,6 +20,7 @@ import { MembersComponent } from './members/members.component';
 import { RegisterComponent } from './register/register.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PageHeaderComponent } from './page-header/page-header.component';
+import { DetailsComponent } from './details/details.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { PageHeaderComponent } from './page-header/page-header.component';
     SearchResultsComponent,
     MembersComponent,
     RegisterComponent,
-    PageHeaderComponent
+    PageHeaderComponent,
+    DetailsComponent
   ],
   imports: [
     AppRoutingModule,
