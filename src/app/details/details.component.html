@@ -5,7 +5,7 @@
             <p-panel header="Details">
                 <div class="flex flex-column gap-4 w-full">
                     <ng-container *ngTemplateOutlet="panelRow; context: { label: 'Label', content: band.GroupName }"></ng-container>
-                    <ng-container *ngTemplateOutlet="panelRow; context: { label: 'Members', content: band.Members.length }"></ng-container>
+                    <ng-container *ngTemplateOutlet="panelRow; context: { label: 'Members', content: band.Members.length + '/' + band.MaxGroupSize }"></ng-container>
                 </div>
             </p-panel>
         </div>

@@ -2,6 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Table } from 'primeng/table';
 import { Band } from '../models/band';
 import { Member } from '../models/member';
+import { BandsService } from '../services/bands.service';
 
 @Component({
   selector: 'app-members',
@@ -17,7 +18,7 @@ export class MembersComponent implements OnInit {
   members: Member[] = [];
   maxMembers: number = 1;
 
-  constructor() {
+  constructor(private bandsService: BandsService) {
   }
 
   ngOnInit(): void {
@@ -39,6 +40,10 @@ export class MembersComponent implements OnInit {
   }
 
   saveMember(member: any): void {
-    member.MemberId = this.nextNewId();
+    this.bandsService.addMember(this.band.GroupId, member)
+    .subscribe({
+      next: (data) => console.log(`Success! ${data}`),
+      error: (err) => console.log(err.message)
+    });
   }
 }
