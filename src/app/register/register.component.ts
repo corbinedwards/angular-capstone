@@ -16,7 +16,10 @@ export class RegisterComponent implements OnInit {
   selectedLabel!: Label;
   band: Band = new Band();
 
-  constructor(private bandsService: BandsService, private router: Router) { 
+  constructor(
+    private bandsService: BandsService, 
+    private router: Router
+  ) { 
     this.registerForm = new FormGroup({
       bandName: new FormControl('', { validators: Validators.required }),
       label: new FormControl(null, { validators: Validators.required }),
@@ -46,7 +49,7 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(formValues: any): void {
     this.bandsService.createNewBand(this.band).subscribe({
-      next: (band) => this.router.navigate(['details', { id: band.GroupId }]),
+      next: (band) => this.router.navigate(['details', band.GroupId]),
       error: (err) => console.log(err.message)
     })
   }

@@ -18,12 +18,15 @@ export class DetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const bandId = this.route.snapshot.paramMap.get('id') ?? '';
-    this.bandsService.getBandById(bandId)
-    .subscribe({
-      next: (band) => this.band = band,
-      error: (err) => console.log(err.message)
+    this.route.params.subscribe(params => {
+      const bandId = params['id'] ?? '';
+      this.bandsService.getBandById(bandId)
+      .subscribe({
+        next: (band) => this.band = band,
+        error: (err) => console.log(err.message)
+      });
     })
+    
   }
 
 }

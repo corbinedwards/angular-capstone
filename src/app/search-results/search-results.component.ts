@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Band } from '../models/band';
 import { BandsService } from '../services/bands.service';
@@ -24,10 +24,11 @@ export class SearchResultsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.searchQuery = (this.route.snapshot.paramMap.get('query') ?? '').toLowerCase();
-    this.labelId = (this.route.snapshot.paramMap.get('label') ?? '').toLowerCase();
-    (this.labelId) ? this.getBandsByLabel(): this.getAllBands();
+    this.route.params.subscribe(params => {
+      this.searchQuery = params['query']?.toLowerCase() ?? '';
+      this.labelId = params['label']?.toLowerCase() ?? '';
+      (this.labelId) ? this.getBandsByLabel(): this.getAllBands();
+    });
   }
 
   getAllBands(): void {
@@ -66,7 +67,7 @@ export class SearchResultsComponent implements OnInit {
   }
 
   navigateToDetails(band: Band): void {
-    this.router.navigate(['/details', { id: band.GroupId }]);
+    this.router.navigate(['/details', band.GroupId]);
   }
 
   viewAllBands(): void {
