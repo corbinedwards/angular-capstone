@@ -65,6 +65,10 @@ export class SearchResultsComponent implements OnInit {
     )
   }
 
+  navigateToDetails(band: Band): void {
+    this.router.navigate(['/details', { id: band.GroupId }]);
+  }
+
   viewAllBands(): void {
     this.router.navigate(['/results']);
   }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Band } from '../models/band';
+import { BandsService } from '../services/bands.service';
 
 @Component({
   selector: 'app-details',
@@ -10,15 +12,18 @@ export class DetailsComponent implements OnInit {
 
   band: Band = new Band();
 
-  constructor() { }
+  constructor(
+    public route: ActivatedRoute,
+    private bandsService: BandsService
+  ) { }
 
   ngOnInit(): void {
-    this.band.GroupName = 'The Awesome Band';
-    this.band.MaxGroupSize = 5;
-    this.band.OrganizationName = 'Brainfeeder';
-    this.band.SponsorEmail = 'susan@gmail.com';
-    this.band.SponsorName = 'Susan Johnson';
-    this.band.SponsorPhone = '555-555-5555';
+    const bandId = this.route.snapshot.paramMap.get('id') ?? '';
+    this.bandsService.getBandById(bandId)
+    .subscribe({
+      next: (band) => this.band = band,
+      error: (err) => console.log(err.message)
+    })
   }
 
 }
