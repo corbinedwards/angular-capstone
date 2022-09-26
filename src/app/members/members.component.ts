@@ -35,8 +35,17 @@ export class MembersComponent implements OnInit {
     this.table?.initRowEdit(newRow);
   }
 
-  private nextNewId(): number {
-    return Math.max(...this.band?.Members.map(member => member.MemberId)) + 1;
+  onKeyDown(event: KeyboardEvent, member: Member): void {
+    const currentRow: Member = this.table?.value.find(row => row.MemberId === member.MemberId);
+
+    if (event.key === 'Escape' && currentRow) {
+      this.table?.cancelRowEdit(currentRow);
+      
+      if (member.MemberId === 0) {
+        const memberIndex = this.band?.Members.indexOf(member);      
+        this.band?.Members.splice(memberIndex, 1);
+      }
+    }
   }
 
   saveMember(member: any): void {

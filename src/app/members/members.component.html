@@ -8,7 +8,7 @@
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-member let-editing="editing">
-        <tr [pEditableRow]="member">
+        <tr [pEditableRow]="member" (keydown)="onKeyDown($event, member)">
             <td>
                 <p-cellEditor>
                     <ng-template pTemplate="input">
