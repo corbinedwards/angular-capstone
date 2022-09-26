@@ -7,6 +7,7 @@ import { GalleriaModule } from 'primeng/galleria';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { PanelModule } from 'primeng/panel';
 import { TableModule } from 'primeng/table';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +21,7 @@ import { MembersComponent } from './members/members.component';
 import { RegisterComponent } from './register/register.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PageHeaderComponent } from './page-header/page-header.component';
+import { DetailsComponent } from './details/details.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { PageHeaderComponent } from './page-header/page-header.component';
     SearchResultsComponent,
     MembersComponent,
     RegisterComponent,
-    PageHeaderComponent
+    PageHeaderComponent,
+    DetailsComponent
   ],
   imports: [
     AppRoutingModule,
@@ -42,6 +45,7 @@ import { PageHeaderComponent } from './page-header/page-header.component';
     GalleriaModule,
     HttpClientModule,
     InputTextModule,
+    PanelModule,
     ProgressSpinnerModule,
     ReactiveFormsModule,
     TableModule

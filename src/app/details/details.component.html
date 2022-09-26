@@ -1,0 +1,29 @@
+<section class="app-content w-8">
+    <app-page-header text="Band Details"></app-page-header>
+    <div class="flex justify-content-between w-full mb-5">
+        <div class="w-5">
+            <p-panel header="Details">
+                <div class="flex flex-column gap-4 w-full">
+                    <ng-container *ngTemplateOutlet="panelRow; context: { label: 'Label', content: band.GroupName }"></ng-container>
+                    <ng-container *ngTemplateOutlet="panelRow; context: { label: 'Members', content: band.Members.length + '/' + band.MaxGroupSize }"></ng-container>
+                </div>
+            </p-panel>
+        </div>
+        <div class="w-5">
+            <p-panel header="Sponsor Info">
+                <div class="flex flex-column gap-4 w-full">
+                    <ng-container *ngTemplateOutlet="panelRow; context: { label: 'Sponsor Name', content: band.SponsorName }"></ng-container>
+                    <ng-container *ngTemplateOutlet="panelRow; context: { label: 'Sponsor Email', content: band.SponsorEmail }"></ng-container>
+                    <ng-container *ngTemplateOutlet="panelRow; context: { label: 'Sponsor Phone', content: band.SponsorPhone }"></ng-container>
+                </div>
+            </p-panel>
+        </div>
+    </div>
+    <app-members [band]="band"></app-members>
+</section>
+<ng-template #panelRow let-label="label" let-content="content">
+    <div class="w-full">
+        <div class="inline-block font-bold w-10rem">{{ label }}</div>
+        <div class="inline-block">{{ content }}</div>
+    </div>
+</ng-template>

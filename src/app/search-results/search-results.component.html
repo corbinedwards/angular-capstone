@@ -19,7 +19,11 @@
             </ng-template>
             <ng-template pTemplate="body" let-band>
                 <tr>
-                    <td>{{ band.GroupName }}</td>
+                    <td>
+                        <a class="text-primary active:text-red-500 underline pointer" (click)="navigateToDetails(band)">
+                            {{ band.GroupName }}
+                        </a>
+                    </td>
                     <td>{{ band.OrganizationName }}</td>
                     <td>{{ band.Members.length }}/{{ band.MaxGroupSize }}</td>
                 </tr>
