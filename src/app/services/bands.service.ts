@@ -49,4 +49,8 @@ export class BandsService {
     return this.http.put<Band>(this.urlBands, band);
   }
 
+  updateMember(groupId: number, member: Member): Observable<Member> {
+    return this.http.put<Member>(`${this.urlBands}/${groupId}/members`, member);
+  }
+
 }

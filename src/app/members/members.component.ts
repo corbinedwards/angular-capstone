@@ -53,17 +53,26 @@ export class MembersComponent implements OnInit {
 
   saveMember(member: any): void {
     if (member.MemberId < 1) {
-      this.bandsService.addMember(this.band.GroupId, member)
-      .subscribe({
-        next: (data: Member) => {
-          const currentMember = this.band.Members.find(member => member.MemberId === 0);
-          if (currentMember) currentMember.MemberId = data.MemberId;
+      this.bandsService.addMember(this.band.GroupId, member).subscribe({
+        next: (newMember: Member) => {
+          const currentMember = this.band.Members.find(findMember => findMember.MemberId === 0);
+          if (currentMember) currentMember.MemberId = newMember.MemberId;
         },
         error: (err) => console.log(err.message)
         // TODO: complete with toast
       });
     } else {
-      console.log(member);
+      this.bandsService.updateMember(this.band.GroupId, member).subscribe({
+        next: (value) => {
+          const currentMember = this.band.Members.find(findMember => findMember.MemberId === member.MemberId);
+          if (currentMember) {
+            currentMember.MemberName = member.MemberName;
+            currentMember.MemberEmail = member.MemberEmail;
+            currentMember.MemberPhone = member.MemberPhone;
+          }
+        },
+        error: (err) => console.log(err.message)
+      });
     }
   }
 
