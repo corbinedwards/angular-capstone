@@ -72,7 +72,7 @@ export class DetailsComponent implements OnInit {
   }
 
   onSubmitDetails(): void {
-    if (!this.formDetails.dirty) return;
+    if (!this.formDetails.dirty || !this.formDetails.valid) return;
 
     this.band.GroupName = this.formDetails.value.bandName;
     this.band.OrganizationName = this.formDetails.value.label;
@@ -82,11 +82,11 @@ export class DetailsComponent implements OnInit {
   }
 
   onSubmitSponsor(): void {
-    if (!this.formDetails.dirty) return;
+    if (!this.formSponsor.dirty || !this.formSponsor.valid) return;
 
     this.band.SponsorName = this.formSponsor.value.sponsorName;
-    this.band.SponsorEmail = this.formDetails.value.sponsorEmail;
-    this.band.SponsorPhone = this.formDetails.value.SponsorPhone;
+    this.band.SponsorEmail = this.formSponsor.value.sponsorEmail;
+    this.band.SponsorPhone = this.formSponsor.value.sponsorPhone;
     this.editingSponsor = false;
     this.updateBand();
   }
