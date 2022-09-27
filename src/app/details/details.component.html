@@ -26,11 +26,7 @@
                     </div>
                     <div class="panel-field">
                         <label for="label">Label</label>
-                        <p-dropdown id="label" 
-                            formControlName="label" 
-                            [options]="labels" 
-                            optionLabel="OrganizationName">
-                        </p-dropdown>
+                        <p-dropdown id="label" formControlName="label" [options]="labels"></p-dropdown>
                     </div>
                     <div class="panel-field">
                         <label for="maxMembers">Members</label>
@@ -61,7 +57,7 @@
                 </form>
             </p-panel>
         </div>
-        <!-- <div class="w-5">
+        <div class="w-5">
             <p-panel>
                 <ng-template pTemplate="header">
                     <div class="flex justify-content-between align-content-center w-full">
@@ -75,13 +71,39 @@
                         </button>
                     </div>
                 </ng-template>
-                <div class="flex flex-column gap-4 w-full">
-                    <ng-container *ngTemplateOutlet="panelRow; context: { label: 'Sponsor Name', content: band.SponsorName }"></ng-container>
-                    <ng-container *ngTemplateOutlet="panelRow; context: { label: 'Sponsor Email', content: band.SponsorEmail }"></ng-container>
-                    <ng-container *ngTemplateOutlet="panelRow; context: { label: 'Sponsor Phone', content: band.SponsorPhone }"></ng-container>
-                </div>
+                <form *ngIf="editingSponsor else sponsor"
+                    [formGroup]="formSponsor"
+                    class="panel-body"
+                    (ngSubmit)="updateBand()"
+                >
+                    <div class="panel-field">
+                        <label for="sponsorName">Sponsor Name</label>
+                        <input type="text" id="sponsorName" formControlName="sponsorName" placeholder="Sponsor Name" pInputText>
+                    </div>
+                    <div class="panel-field">
+                        <label for="sponsorEmail">Sponsor Email</label>
+                        <input type="text" id="sponsorEmail" formControlName="sponsorEmail" placeholder="Sponsor Email" pInputText>
+                    </div>
+                    <div class="panel-field">
+                        <label for="sponsorPhone">Sponsor Phone</label>
+                        <input type="text" id="sponsorPhone" formControlName="sponsorPhone" placeholder="Sponsor Phone" pInputText>
+                    </div>
+                    <div class="edit-buttons">
+                        <button pButton pRipple 
+                            type="submit" 
+                            label="Save" 
+                            class="p-button-rounded">
+                        </button>
+                        <button pButton pRipple 
+                            type="button" 
+                            label="Cancel" 
+                            class="p-button-outlined p-button-rounded" 
+                            (click)="editingSponsor = false">
+                        </button>
+                    </div>
+                </form>
             </p-panel>
-        </div> -->
+        </div>
     </div>
     <app-members [band]="band"></app-members>
 </section>
@@ -98,6 +120,22 @@
         <div class="panel-field">
             <label>Members</label>
             <div>{{ band.Members.length + ' of ' + band.MaxGroupSize }}</div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #sponsor>
+    <div class="panel-body">
+        <div class="panel-field">
+            <label>Sponsor Name</label>
+            <div>{{ band.SponsorName }}</div>
+        </div>
+        <div class="panel-field">
+            <label>Sponsor Email</label>
+            <div>{{ band.SponsorEmail }}</div>
+        </div>
+        <div class="panel-field">
+            <label>Sponsor Phone</label>
+            <div>{{ band.SponsorPhone }}</div>
         </div>
     </div>
 </ng-template>

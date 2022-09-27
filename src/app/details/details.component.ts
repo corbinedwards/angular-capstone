@@ -17,7 +17,7 @@ export class DetailsComponent implements OnInit {
   @ViewChild('maxMembers') maxMembersDropdown: Dropdown | undefined;
 
   band: Band = new Band();
-  labels: Label[] = [];
+  labels: string[] = [];
   editingDetails: boolean = false;
   editingSponsor: boolean = false;
   formDetails: FormGroup;
@@ -50,24 +50,30 @@ export class DetailsComponent implements OnInit {
         complete: () => this.titleService.setTitle(`${this.band.GroupName} - Battle of the Bands`)
       });
     });
-    this.bandsService.getLabels().subscribe(labels => this.labels = labels);
+    this.bandsService.getLabels().subscribe(labels => this.labels = labels.map(label => label.OrganizationName));
   }
 
   editBandDetails(): void {
     if (this.editingDetails) return;
-    
+
     this.formDetails.get('bandName')?.setValue(this.band.GroupName);
-    this.formDetails.get('label')?.setValue(this.labels.find(label => label.OrganizationName === this.band.OrganizationName));
+    this.formDetails.get('label')?.setValue(this.band.OrganizationName);
     this.formDetails.get('maxMembers')?.setValue(this.band.MaxGroupSize);
     this.editingDetails = true;
   }
 
   editSponsorDetails(): void {
+    if (this.editingSponsor) return;
 
+    this.formSponsor.get('sponsorName')?.setValue(this.band.SponsorName);
+    this.formSponsor.get('sponsorEmail')?.setValue(this.band.SponsorEmail);
+    this.formSponsor.get('sponsorPhone')?.setValue(this.band.SponsorPhone);
+    this.editingSponsor = true;
   }
 
   updateBand(): void {
-
+    console.log(this.formDetails.value);
+    console.log(this.formSponsor.value);
   }
 
 }
