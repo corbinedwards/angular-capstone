@@ -25,37 +25,54 @@ export class MembersComponent implements OnInit {
   }
 
   addMember(): void {
-    this.band?.Members.push({
-      MemberId: 0,
-      MemberEmail: '',
-      MemberName: '',
-      MemberPhone: ''
-    });
-    const newRow = this.table?.value[this.table?.value.length - 1];
+    const newMember: Member = new Member();
+    this.band?.Members.push(newMember);
+    const newRow = this.getCurrentMemberRow(newMember);
     this.table?.initRowEdit(newRow);
   }
 
   onKeyDown(event: KeyboardEvent, member: Member): void {
-    const currentRow: Member = this.table?.value.find(row => row.MemberId === member.MemberId);
-
+    const currentRow = this.getCurrentMemberRow(member);
     if (event.key === 'Escape' && currentRow) {
       this.table?.cancelRowEdit(currentRow);
-      if (member.MemberId === 0) {
-        const memberIndex = this.band?.Members.indexOf(member);      
-        this.band?.Members.splice(memberIndex, 1);
-      }
+      if (member.MemberId === 0) this.removeMember(member);
     }
   }
 
-  saveMember(member: any): void {
-    this.bandsService.addMember(this.band.GroupId, member)
-    .subscribe({
-      next: (data: Member) => {
-        const currentMember = this.band.Members.find(member => member.MemberId === 0);
-        if (currentMember) currentMember.MemberId = data.MemberId;
-      },
+  onMemberDelete(member: Member): void {
+    this.bandsService.deleteMember(this.band.GroupId, member.MemberId).subscribe({
+      next: (value) => this.removeMember(member),
       error: (err) => console.log(err.message)
-      // TODO: complete with toast
     });
+  }
+
+  onMemberEdit(member: Member): void {
+    const currentRow = this.getCurrentMemberRow(member);
+    if (currentRow) this.table?.initRowEdit(currentRow);
+  }
+
+  saveMember(member: any): void {
+    if (member.MemberId < 1) {
+      this.bandsService.addMember(this.band.GroupId, member)
+      .subscribe({
+        next: (data: Member) => {
+          const currentMember = this.band.Members.find(member => member.MemberId === 0);
+          if (currentMember) currentMember.MemberId = data.MemberId;
+        },
+        error: (err) => console.log(err.message)
+        // TODO: complete with toast
+      });
+    } else {
+      console.log(member);
+    }
+  }
+
+  private getCurrentMemberRow(member: Member): Member | null {
+    return this.table?.value.find(row => row.MemberId === member.MemberId);
+  }
+
+  private removeMember(member: Member) {
+    const memberIndex = this.band?.Members.indexOf(member);      
+    if (memberIndex > -1) this.band?.Members.splice(memberIndex, 1);
   }
 }

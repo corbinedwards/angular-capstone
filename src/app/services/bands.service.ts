@@ -25,6 +25,10 @@ export class BandsService {
     return this.http.post<Band>(this.urlBands, newBand);
   }
 
+  deleteMember(groupId: number, memberId: number): Observable<any> {
+    return this.http.delete(`${this.urlBands}/${groupId}/members/${memberId}`)
+  }
+
   getAllBands(): Observable<Band[]> {
     return this.http.get<Band[]>(this.urlBands)
   }
