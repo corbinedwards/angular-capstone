@@ -28,7 +28,7 @@ export class DetailsComponent implements OnInit {
     private bandsService: BandsService,
     private fb: FormBuilder,
     private titleService: Title
-  ) { 
+  ) {
     this.formDetails = fb.group({
       bandName: ['', Validators.required],
       label: ['', Validators.required],
@@ -36,7 +36,7 @@ export class DetailsComponent implements OnInit {
     });
     this.formSponsor = fb.group({
       sponsorName: ['', Validators.required],
-      sponsorEmail: ['', Validators.required],
+      sponsorEmail: ['', Validators.email],
       sponsorPhone: ['', Validators.required]
     });
   }
@@ -71,9 +71,32 @@ export class DetailsComponent implements OnInit {
     this.editingSponsor = true;
   }
 
+  onSubmitDetails(): void {
+    if (!this.formDetails.dirty) return;
+
+    this.band.GroupName = this.formDetails.value.bandName;
+    this.band.OrganizationName = this.formDetails.value.label;
+    this.band.MaxGroupSize = this.formDetails.value.maxMembers;
+    this.editingDetails = false;
+    this.updateBand();
+  }
+
+  onSubmitSponsor(): void {
+    if (!this.formDetails.dirty) return;
+
+    this.band.SponsorName = this.formSponsor.value.sponsorName;
+    this.band.SponsorEmail = this.formDetails.value.sponsorEmail;
+    this.band.SponsorPhone = this.formDetails.value.SponsorPhone;
+    this.editingSponsor = false;
+    this.updateBand();
+  }
+
   updateBand(): void {
     console.log(this.formDetails.value);
     console.log(this.formSponsor.value);
+    this.bandsService.updateBand(this.band).subscribe({
+      error: (err) => console.log(err.message)
+    });
   }
 
 }

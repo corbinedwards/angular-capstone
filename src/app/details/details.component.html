@@ -18,7 +18,7 @@
                 <form *ngIf="editingDetails else details"
                     [formGroup]="formDetails"
                     class="panel-body"
-                    (ngSubmit)="updateBand()"
+                    (ngSubmit)="onSubmitDetails()"
                 >
                     <div class="panel-field">
                         <label for="bandName">Band Name</label>
@@ -74,7 +74,7 @@
                 <form *ngIf="editingSponsor else sponsor"
                     [formGroup]="formSponsor"
                     class="panel-body"
-                    (ngSubmit)="updateBand()"
+                    (ngSubmit)="onSubmitSponsor()"
                 >
                     <div class="panel-field">
                         <label for="sponsorName">Sponsor Name</label>

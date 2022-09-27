@@ -41,4 +41,8 @@ export class BandsService {
     return this.http.get<Label[]>(this.urlLabels);
   }
 
+  updateBand(band: Band): Observable<Band> {
+    return this.http.put<Band>(this.urlBands, band);
+  }
+
 }
