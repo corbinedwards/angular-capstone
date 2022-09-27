@@ -1,0 +1,23 @@
+.panel-field {
+    width: 100%;
+    display: flex;
+}
+
+.panel-field > label {
+    width: 10rem;
+    font-weight: bold;
+}
+
+.panel-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.edit-buttons {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    justify-content: end;
+}

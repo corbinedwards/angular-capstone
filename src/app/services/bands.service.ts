@@ -25,6 +25,10 @@ export class BandsService {
     return this.http.post<Band>(this.urlBands, newBand);
   }
 
+  deleteMember(groupId: number, memberId: number): Observable<any> {
+    return this.http.delete(`${this.urlBands}/${groupId}/members/${memberId}`)
+  }
+
   getAllBands(): Observable<Band[]> {
     return this.http.get<Band[]>(this.urlBands)
   }
@@ -39,6 +43,14 @@ export class BandsService {
 
   getLabels(): Observable<Label[]> {
     return this.http.get<Label[]>(this.urlLabels);
+  }
+
+  updateBand(band: Band): Observable<Band> {
+    return this.http.put<Band>(this.urlBands, band);
+  }
+
+  updateMember(groupId: number, member: Member): Observable<Member> {
+    return this.http.put<Member>(`${this.urlBands}/${groupId}/members`, member);
   }
 
 }

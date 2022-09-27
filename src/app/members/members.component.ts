@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ConfirmationService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Band } from '../models/band';
 import { Member } from '../models/member';
@@ -18,41 +19,81 @@ export class MembersComponent implements OnInit {
   members: Member[] = [];
   maxMembers: number = 1;
 
-  constructor(private bandsService: BandsService) {
-  }
+  constructor(
+    private bandsService: BandsService, 
+    private confirmationService: ConfirmationService
+  ) { }
 
   ngOnInit(): void {
   }
 
   addMember(): void {
-    this.band?.Members.push({
-      MemberId: 0,
-      MemberEmail: '',
-      MemberName: '',
-      MemberPhone: ''
-    });
-    const newRow = this.table?.value[this.table?.value.length - 1];
+    const newMember: Member = new Member();
+    this.band?.Members.push(newMember);
+    const newRow = this.getCurrentMemberRow(newMember);
     this.table?.initRowEdit(newRow);
   }
 
   onKeyDown(event: KeyboardEvent, member: Member): void {
-    const currentRow: Member = this.table?.value.find(row => row.MemberId === member.MemberId);
-
+    const currentRow = this.getCurrentMemberRow(member);
     if (event.key === 'Escape' && currentRow) {
       this.table?.cancelRowEdit(currentRow);
-      
-      if (member.MemberId === 0) {
-        const memberIndex = this.band?.Members.indexOf(member);      
-        this.band?.Members.splice(memberIndex, 1);
-      }
+      if (member.MemberId === 0) this.removeMember(member);
     }
   }
 
+  onMemberDelete(member: Member): void {
+    this.confirmationService.confirm({
+      message: `Are you sure you want to remove '${member.MemberName}' from the band?`,
+      accept: () => {
+        this.bandsService.deleteMember(this.band.GroupId, member.MemberId).subscribe({
+          next: (value) => this.removeMember(member),
+          error: (err) => console.log(err.message)
+        });
+      }
+    })
+  }
+
+  onMemberEdit(member: Member): void {
+    const currentRow = this.getCurrentMemberRow(member);
+    if (currentRow) this.table?.initRowEdit(currentRow);
+  }
+
+  onMemberEditCancel(member: Member): void {
+    if (member.MemberId === 0) this.removeMember(member);
+  }
+
   saveMember(member: any): void {
-    this.bandsService.addMember(this.band.GroupId, member)
-    .subscribe({
-      next: (data) => console.log(`Success! ${data}`),
-      error: (err) => console.log(err.message)
-    });
+    if (member.MemberId < 1) {
+      this.bandsService.addMember(this.band.GroupId, member).subscribe({
+        next: (newMember: Member) => {
+          const currentMember = this.band.Members.find(findMember => findMember.MemberId === 0);
+          if (currentMember) currentMember.MemberId = newMember.MemberId;
+        },
+        error: (err) => console.log(err.message)
+        // TODO: complete with toast
+      });
+    } else {
+      this.bandsService.updateMember(this.band.GroupId, member).subscribe({
+        next: (value) => {
+          const currentMember = this.band.Members.find(findMember => findMember.MemberId === member.MemberId);
+          if (currentMember) {
+            currentMember.MemberName = member.MemberName;
+            currentMember.MemberEmail = member.MemberEmail;
+            currentMember.MemberPhone = member.MemberPhone;
+          }
+        },
+        error: (err) => console.log(err.message)
+      });
+    }
+  }
+
+  private getCurrentMemberRow(member: Member): Member | null {
+    return this.table?.value.find(row => row.MemberId === member.MemberId);
+  }
+
+  private removeMember(member: Member) {
+    const memberIndex = this.band?.Members.indexOf(member);      
+    if (memberIndex > -1) this.band?.Members.splice(memberIndex, 1);
   }
 }

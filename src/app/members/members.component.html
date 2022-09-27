@@ -40,14 +40,36 @@
                 </p-cellEditor>
             </td>
             <td>
-                <button *ngIf="editing" 
-                    pButton 
-                    pSaveEditableRow
-                    type="button" 
-                    label="Accept" 
-                    class="p-button-rounded p-button-success"
-                    (click)="saveMember(member)">
-                </button>
+                <div *ngIf="!editing">
+                    <button pButton pRipple 
+                        type="button" 
+                        icon="pi pi-pencil" 
+                        class="p-button-rounded p-button-text"
+                        (click)="onMemberEdit(member)" >
+                    </button>
+                    <button pButton pRipple 
+                        type="button" 
+                        icon="pi pi-times" 
+                        class="p-button-rounded p-button-text p-button-danger"
+                        (click)="onMemberDelete(member)">
+                    </button>
+                </div>
+                <div *ngIf="editing">
+                    <button pButton 
+                        type="button" 
+                        pSaveEditableRow
+                        label="Accept" 
+                        class="p-button-rounded p-button-success mr-1"
+                        (click)="saveMember(member)">
+                    </button>
+                    <button pButton 
+                        type="button" 
+                        pCancelEditableRow
+                        label="Cancel"
+                        class="p-button-rounded p-button-outlined p-button-secondary"
+                        (click)="onMemberEditCancel(member)">
+                    </button>
+                </div>
             </td>
         </tr>
     </ng-template>
@@ -55,3 +77,8 @@
         <span class="underline text-primary pointer" (click)="addMember()">+ Add Member</span>
     </ng-template>
 </p-table>
+<p-confirmDialog header="Remove Member?" 
+    icon="pi pi-exclamation-triangle"
+    acceptButtonStyleClass="p-button-success"
+    rejectButtonStyleClass="p-button-danger p-button-outlined">
+</p-confirmDialog>
