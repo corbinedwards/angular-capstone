@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ConfirmationService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Band } from '../models/band';
 import { Member } from '../models/member';
@@ -18,8 +19,10 @@ export class MembersComponent implements OnInit {
   members: Member[] = [];
   maxMembers: number = 1;
 
-  constructor(private bandsService: BandsService) {
-  }
+  constructor(
+    private bandsService: BandsService, 
+    private confirmationService: ConfirmationService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -40,15 +43,24 @@ export class MembersComponent implements OnInit {
   }
 
   onMemberDelete(member: Member): void {
-    this.bandsService.deleteMember(this.band.GroupId, member.MemberId).subscribe({
-      next: (value) => this.removeMember(member),
-      error: (err) => console.log(err.message)
-    });
+    this.confirmationService.confirm({
+      message: `Are you sure you want to remove '${member.MemberName}' from the band?`,
+      accept: () => {
+        this.bandsService.deleteMember(this.band.GroupId, member.MemberId).subscribe({
+          next: (value) => this.removeMember(member),
+          error: (err) => console.log(err.message)
+        });
+      }
+    })
   }
 
   onMemberEdit(member: Member): void {
     const currentRow = this.getCurrentMemberRow(member);
     if (currentRow) this.table?.initRowEdit(currentRow);
+  }
+
+  onMemberEditCancel(member: Member): void {
+    if (member.MemberId === 0) this.removeMember(member);
   }
 
   saveMember(member: any): void {
