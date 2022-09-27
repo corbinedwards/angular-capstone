@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { ButtonModule } from 'primeng/button';
 import { GalleriaModule } from 'primeng/galleria';
 import { DropdownModule } from 'primeng/dropdown';
+import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { PanelModule } from 'primeng/panel';
@@ -44,6 +45,7 @@ import { DetailsComponent } from './details/details.component';
     FormsModule,
     GalleriaModule,
     HttpClientModule,
+    InputNumberModule,
     InputTextModule,
     PanelModule,
     ProgressSpinnerModule,

@@ -2,28 +2,102 @@
     <app-page-header text="Band Details"></app-page-header>
     <div class="flex justify-content-between w-full mb-5">
         <div class="w-5">
-            <p-panel header="Details">
-                <div class="flex flex-column gap-4 w-full">
-                    <ng-container *ngTemplateOutlet="panelRow; context: { label: 'Label', content: band.GroupName }"></ng-container>
-                    <ng-container *ngTemplateOutlet="panelRow; context: { label: 'Members', content: band.Members.length + '/' + band.MaxGroupSize }"></ng-container>
-                </div>
+            <p-panel>
+                <ng-template pTemplate="header">
+                    <div class="flex justify-content-between align-content-center w-full">
+                        <h3 class="m-0">Details</h3>
+                        <button pButton 
+                            type="button" 
+                            icon="pi pi-pencil" 
+                            class="p-button-text p-0" 
+                            title="Edit Details"
+                            (click)="editBandDetails()">
+                        </button>
+                    </div>
+                </ng-template>
+                <form *ngIf="editingDetails else details"
+                    [formGroup]="formDetails"
+                    class="panel-body"
+                    (ngSubmit)="updateBand()"
+                >
+                    <div class="panel-field">
+                        <label for="bandName">Band Name</label>
+                        <input id="bandName" formControlName="bandName" type="text" placeholder="Band Name" pInputText>
+                    </div>
+                    <div class="panel-field">
+                        <label for="label">Label</label>
+                        <p-dropdown id="label" 
+                            formControlName="label" 
+                            [options]="labels" 
+                            optionLabel="OrganizationName">
+                        </p-dropdown>
+                    </div>
+                    <div class="panel-field">
+                        <label for="maxMembers">Members</label>
+                        <div>
+                            {{ band.Members.length + ' of ' }}
+                            <p-inputNumber #maxMembers
+                                id="maxMembers"
+                                formControlName="maxMembers" 
+                                inputStyleClass="w-2"
+                                placeholder="Max Members"
+                                [min]="(band.Members.length > 0) ? band.Members.length : 1">
+                            </p-inputNumber>
+                        </div>
+                    </div>
+                    <div class="edit-buttons">
+                        <button pButton pRipple 
+                            type="submit" 
+                            label="Save" 
+                            class="p-button-rounded">
+                        </button>
+                        <button pButton pRipple 
+                            type="button" 
+                            label="Cancel" 
+                            class="p-button-outlined p-button-rounded" 
+                            (click)="editingDetails = false">
+                        </button>
+                    </div>
+                </form>
             </p-panel>
         </div>
-        <div class="w-5">
-            <p-panel header="Sponsor Info">
+        <!-- <div class="w-5">
+            <p-panel>
+                <ng-template pTemplate="header">
+                    <div class="flex justify-content-between align-content-center w-full">
+                        <h3 class="m-0">Sponsor Info</h3>
+                        <button pButton 
+                            type="button" 
+                            icon="pi pi-pencil" 
+                            class="p-button-text p-0" 
+                            title="Edit Details"
+                            (click)="editSponsorDetails()">
+                        </button>
+                    </div>
+                </ng-template>
                 <div class="flex flex-column gap-4 w-full">
                     <ng-container *ngTemplateOutlet="panelRow; context: { label: 'Sponsor Name', content: band.SponsorName }"></ng-container>
                     <ng-container *ngTemplateOutlet="panelRow; context: { label: 'Sponsor Email', content: band.SponsorEmail }"></ng-container>
                     <ng-container *ngTemplateOutlet="panelRow; context: { label: 'Sponsor Phone', content: band.SponsorPhone }"></ng-container>
                 </div>
             </p-panel>
-        </div>
+        </div> -->
     </div>
     <app-members [band]="band"></app-members>
 </section>
-<ng-template #panelRow let-label="label" let-content="content">
-    <div class="w-full">
-        <div class="inline-block font-bold w-10rem">{{ label }}</div>
-        <div class="inline-block">{{ content }}</div>
+<ng-template #details>
+    <div class="panel-body">
+        <div class="panel-field">
+            <label>Band Name</label>
+            <div>{{ band.GroupName }}</div>
+        </div>
+        <div class="panel-field">
+            <label>Label</label>
+            <div>{{ band.OrganizationName }}</div>
+        </div>
+        <div class="panel-field">
+            <label>Members</label>
+            <div>{{ band.Members.length + ' of ' + band.MaxGroupSize }}</div>
+        </div>
     </div>
 </ng-template>

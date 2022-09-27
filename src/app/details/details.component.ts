@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { Dropdown } from 'primeng/dropdown';
 import { Band } from '../models/band';
+import { Label } from '../models/label';
 import { BandsService } from '../services/bands.service';
 
 @Component({
@@ -11,25 +14,60 @@ import { BandsService } from '../services/bands.service';
 })
 export class DetailsComponent implements OnInit {
 
+  @ViewChild('maxMembers') maxMembersDropdown: Dropdown | undefined;
+
   band: Band = new Band();
+  labels: Label[] = [];
+  editingDetails: boolean = false;
+  editingSponsor: boolean = false;
+  formDetails: FormGroup;
+  formSponsor: FormGroup;
 
   constructor(
     public route: ActivatedRoute,
     private bandsService: BandsService,
+    private fb: FormBuilder,
     private titleService: Title
-  ) { }
+  ) { 
+    this.formDetails = fb.group({
+      bandName: ['', Validators.required],
+      label: ['', Validators.required],
+      maxMembers: [1, Validators.min(1)]
+    });
+    this.formSponsor = fb.group({
+      sponsorName: ['', Validators.required],
+      sponsorEmail: ['', Validators.required],
+      sponsorPhone: ['', Validators.required]
+    });
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       const bandId = params['id'] ?? '';
-      this.bandsService.getBandById(bandId)
-      .subscribe({
+      this.bandsService.getBandById(bandId).subscribe({
         next: (band) => this.band = band,
         error: (err) => console.log(err.message),
         complete: () => this.titleService.setTitle(`${this.band.GroupName} - Battle of the Bands`)
       });
-    })
+    });
+    this.bandsService.getLabels().subscribe(labels => this.labels = labels);
+  }
+
+  editBandDetails(): void {
+    if (this.editingDetails) return;
     
+    this.formDetails.get('bandName')?.setValue(this.band.GroupName);
+    this.formDetails.get('label')?.setValue(this.labels.find(label => label.OrganizationName === this.band.OrganizationName));
+    this.formDetails.get('maxMembers')?.setValue(this.band.MaxGroupSize);
+    this.editingDetails = true;
+  }
+
+  editSponsorDetails(): void {
+
+  }
+
+  updateBand(): void {
+
   }
 
 }
