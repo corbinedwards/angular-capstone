@@ -16,14 +16,15 @@ import { TableModule } from 'primeng/table';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { SearchComponent } from './search/search.component';
-import { HomeComponent } from './home/home.component';
-import { SearchResultsComponent } from './search-results/search-results.component';
-import { MembersComponent } from './members/members.component';
-import { RegisterComponent } from './register/register.component';
-import { PageHeaderComponent } from './page-header/page-header.component';
 import { DetailsComponent } from './details/details.component';
+import { HomeComponent } from './home/home.component';
+import { MembersComponent } from './members/members.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { RegisterComponent } from './register/register.component';
+import { SearchComponent } from './search/search.component';
+import { SearchResultsComponent } from './search-results/search-results.component';
+import { PageHeaderComponent } from './page-header/page-header.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 import { ConfirmationService } from 'primeng/api';
 
@@ -37,7 +38,8 @@ import { ConfirmationService } from 'primeng/api';
     MembersComponent,
     RegisterComponent,
     PageHeaderComponent,
-    DetailsComponent
+    DetailsComponent,
+    PageNotFoundComponent
   ],
   imports: [
     AppRoutingModule,
