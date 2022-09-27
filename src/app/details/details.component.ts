@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ConfirmationService } from 'primeng/api';
 import { Dropdown } from 'primeng/dropdown';
 import { Band } from '../models/band';
 import { Label } from '../models/label';
@@ -25,7 +26,9 @@ export class DetailsComponent implements OnInit {
 
   constructor(
     public route: ActivatedRoute,
+    public router: Router,
     private bandsService: BandsService,
+    private confirmationService: ConfirmationService,
     private fb: FormBuilder,
     private titleService: Title
   ) {
@@ -51,6 +54,18 @@ export class DetailsComponent implements OnInit {
       });
     });
     this.bandsService.getLabels().subscribe(labels => this.labels = labels.map(label => label.OrganizationName));
+  }
+
+  deleteBand(): void {
+    this.confirmationService.confirm({
+      message: `Are you sure you want to permanently delete this band? All member data will also be lost.`,
+      accept: () => {
+        this.bandsService.deleteBand(this.band.GroupId).subscribe({
+          next: () => this.router.navigate(['results']),
+          error: (err) => console.log(err.message)
+        })
+      }
+    })
   }
 
   editBandDetails(): void {

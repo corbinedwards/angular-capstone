@@ -106,6 +106,14 @@
         </div>
     </div>
     <app-members [band]="band"></app-members>
+    <div class="flex justify-content-end mt-4">
+        <button pButton type="button" label="Delete Band" class="p-button-outlined p-button-danger" (click)="deleteBand()"></button>
+        <p-confirmDialog header="Delete Band?" 
+            icon="pi pi-exclamation-triangle"
+            acceptButtonStyleClass="p-button-success"
+            rejectButtonStyleClass="p-button-danger p-button-outlined">
+        </p-confirmDialog>
+    </div>
 </section>
 <ng-template #details>
     <div class="panel-body">

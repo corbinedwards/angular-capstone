@@ -25,12 +25,16 @@ export class BandsService {
     return this.http.post<Band>(this.urlBands, newBand);
   }
 
+  deleteBand(groupId: number): Observable<any> {
+    return this.http.delete(`${this.urlBands}/${groupId}`);
+  }
+
   deleteMember(groupId: number, memberId: number): Observable<any> {
-    return this.http.delete(`${this.urlBands}/${groupId}/members/${memberId}`)
+    return this.http.delete(`${this.urlBands}/${groupId}/members/${memberId}`);
   }
 
   getAllBands(): Observable<Band[]> {
-    return this.http.get<Band[]>(this.urlBands)
+    return this.http.get<Band[]>(this.urlBands);
   }
 
   getBandsByOrg(organizationId: string): Observable<Band[]> {
