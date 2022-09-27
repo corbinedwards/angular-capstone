@@ -40,7 +40,6 @@ export class MembersComponent implements OnInit {
 
     if (event.key === 'Escape' && currentRow) {
       this.table?.cancelRowEdit(currentRow);
-      
       if (member.MemberId === 0) {
         const memberIndex = this.band?.Members.indexOf(member);      
         this.band?.Members.splice(memberIndex, 1);
@@ -51,8 +50,12 @@ export class MembersComponent implements OnInit {
   saveMember(member: any): void {
     this.bandsService.addMember(this.band.GroupId, member)
     .subscribe({
-      next: (data) => console.log(`Success! ${data}`),
+      next: (data: Member) => {
+        const currentMember = this.band.Members.find(member => member.MemberId === 0);
+        if (currentMember) currentMember.MemberId = data.MemberId;
+      },
       error: (err) => console.log(err.message)
+      // TODO: complete with toast
     });
   }
 }
