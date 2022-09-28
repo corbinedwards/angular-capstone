@@ -12,7 +12,6 @@ import { ToastMessageService } from '../services/toast-message.service';
   selector: 'app-members',
   templateUrl: './members.component.html',
   styleUrls: ['./members.component.css'],
-  providers: [ MessageService ]
 })
 export class MembersComponent implements OnInit {
 
@@ -26,7 +25,7 @@ export class MembersComponent implements OnInit {
   constructor(
     private bandsService: BandsService, 
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private toastMessageService: ToastMessageService
   ) { }
 
   ngOnInit(): void {
@@ -60,19 +59,9 @@ export class MembersComponent implements OnInit {
         this.bandsService.deleteMember(this.band.GroupId, member.MemberId).subscribe({
           next: (value) => {
             this.removeMember(member);
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Success',
-              detail: 'Member successfully removed.',
-              life: 10000
-            })
+            this.toastMessageService.successMessage('Member successfully removed.');
           },
-          error: (err) => this.messageService.add({
-              severity: 'error', 
-              summary: 'Error Removing Member',
-              detail: err.message,
-              life: 10000
-          }),
+          error: (err) => this.toastMessageService.errorMessage('Error Removing Member', err.message)
         });
       },
       key: 'removeMember'
@@ -94,19 +83,9 @@ export class MembersComponent implements OnInit {
         next: (newMember: Member) => {
           const currentMember = this.band.Members.find(findMember => findMember.MemberId === 0);
           if (currentMember) currentMember.MemberId = newMember.MemberId;
+          this.toastMessageService.successMessage('Member successfully added.');
         },
-        error: (err) => this.messageService.add({
-          severity: 'error',
-          summary: 'Error Adding Member',
-          detail: err.message,
-          life: 10000
-        }),
-        complete: () => this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: 'Member successfully added.',
-          life: 10000
-        })
+        error: (err) => this.toastMessageService.errorMessage('Error Adding Member', err.message)
       });
     } else {
       this.bandsService.updateMember(this.band.GroupId, member).subscribe({
@@ -117,19 +96,9 @@ export class MembersComponent implements OnInit {
             currentMember.MemberEmail = member.MemberEmail;
             currentMember.MemberPhone = member.MemberPhone;
           }
+          this.toastMessageService.successMessage('Member successfully updated.')
         },
-        error: (err) => this.messageService.add({
-          severity: 'error',
-          summary: 'Error Editing Member',
-          detail: err.message,
-          life: 10000
-        }),
-        complete: () => this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: 'Member successfully updated.',
-          life: 10000
-        })
+        error: (err) => this.toastMessageService.errorMessage('Error Editing Member', err.message)
       });
     }
   }

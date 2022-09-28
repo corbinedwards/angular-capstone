@@ -27,7 +27,7 @@ import { SearchResultsComponent } from './search-results/search-results.componen
 import { PageHeaderComponent } from './page-header/page-header.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -60,7 +60,7 @@ import { ConfirmationService } from 'primeng/api';
     TableModule,
     ToastModule
   ],
-  providers: [ ConfirmationService ],
+  providers: [ ConfirmationService, MessageService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { 
