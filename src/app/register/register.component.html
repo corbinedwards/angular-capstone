@@ -39,17 +39,18 @@
         </div>
         <div class="register-field">
             <label for="sponsorPhone">Manager Phone</label>
-            <input id="sponsorPhone" formControlName="sponsorPhone" type="text" pInputText>
+            <input id="sponsorPhone" formControlName="sponsorPhone" type="tel" pInputText>
             <ng-container *ngTemplateOutlet="warning; context: { control: 'sponsorPhone', message: 'Manager Phone not valid.' }"></ng-container>
         </div>
         <div class="register-field">
             <label for="sponsorEmail">Manager Email</label>
-            <input id="sponsorEmail" formControlName="sponsorEmail" type="text" pInputText>
+            <input id="sponsorEmail" formControlName="sponsorEmail" type="email" pInputText>
             <ng-container *ngTemplateOutlet="warning; context: { control: 'sponsorEmail', message: 'Manager Email not valid.' }"></ng-container>
         </div>
         <p-button type="submit" label="Submit" class="mt-4"></p-button>
     </form>
 </section>
+<p-toast></p-toast>
 <ng-template #warning let-control="control" let-message="message">
     <small *ngIf="!registerForm.controls[control].valid && registerForm.controls[control].touched" 
         id="{{ control }}-help" 

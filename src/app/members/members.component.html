@@ -7,12 +7,12 @@
             <th></th>
         </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-member let-editing="editing">
-        <tr [pEditableRow]="member" (keydown)="onKeyDown($event, member)">
+    <ng-template pTemplate="body" let-member let-editing="editing" let-ri="rowIndex">
+        <tr [pEditableRow]="member" (keydown)="onKeyDown($event, member, ri)">
             <td>
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="member.MemberName">
+                        <input pInputText type="text" [(ngModel)]="member.MemberName" required>
                     </ng-template>
                     <ng-template pTemplate="output">
                         {{ member.MemberName }}
@@ -22,7 +22,7 @@
             <td>
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="member.MemberEmail">
+                        <input pInputText type="email" pattern=".+@.+" [(ngModel)]="member.MemberEmail" required>
                     </ng-template>
                     <ng-template pTemplate="output">
                         {{ member.MemberEmail }}
@@ -32,7 +32,7 @@
             <td>
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="member.MemberPhone">
+                        <input pInputText type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" [(ngModel)]="member.MemberPhone" required>
                     </ng-template>
                     <ng-template pTemplate="output">
                         {{ member.MemberPhone }}
@@ -45,13 +45,13 @@
                         type="button" 
                         icon="pi pi-pencil" 
                         class="p-button-rounded p-button-text"
-                        (click)="onMemberEdit(member)" >
+                        (click)="onMemberEdit(member, ri)" >
                     </button>
                     <button pButton pRipple 
                         type="button" 
                         icon="pi pi-times" 
                         class="p-button-rounded p-button-text p-button-danger"
-                        (click)="onMemberDelete(member)">
+                        (click)="onMemberDelete(member, ri)">
                     </button>
                 </div>
                 <div *ngIf="editing">
@@ -67,7 +67,7 @@
                         pCancelEditableRow
                         label="Cancel"
                         class="p-button-rounded p-button-outlined p-button-secondary"
-                        (click)="onMemberEditCancel(member)">
+                        (click)="onMemberEditCancel(member, ri)">
                     </button>
                 </div>
             </td>

@@ -2,11 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, Message, MessageService } from 'primeng/api';
 import { Dropdown } from 'primeng/dropdown';
 import { Band } from '../models/band';
-import { Label } from '../models/label';
 import { BandsService } from '../services/bands.service';
+import { ToastMessageService } from '../services/toast-message.service';
 
 @Component({
   selector: 'app-details',
@@ -30,6 +30,7 @@ export class DetailsComponent implements OnInit {
     private bandsService: BandsService,
     private confirmationService: ConfirmationService,
     private fb: FormBuilder,
+    private toastMessageService: ToastMessageService,
     private titleService: Title
   ) {
     this.formDetails = fb.group({
@@ -62,7 +63,7 @@ export class DetailsComponent implements OnInit {
       accept: () => {
         this.bandsService.deleteBand(this.band.GroupId).subscribe({
           next: () => this.router.navigate(['results']),
-          error: (err) => console.log(err.message)
+          error: (err) => this.toastMessageService.errorMessage('Error Deleteing Band', err.message)
         })
       },
       key: 'deleteBand'
@@ -109,7 +110,8 @@ export class DetailsComponent implements OnInit {
 
   updateBand(): void {
     this.bandsService.updateBand(this.band).subscribe({
-      error: (err) => console.log(err.message)
+      next: (value) => this.toastMessageService.successMessage('Band successfully updated.'),
+      error: (err) => this.toastMessageService.errorMessage('Error Updating Band', err.message) 
     });
   }
 

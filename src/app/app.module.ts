@@ -13,6 +13,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PanelModule } from 'primeng/panel';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,7 +27,7 @@ import { SearchResultsComponent } from './search-results/search-results.componen
 import { PageHeaderComponent } from './page-header/page-header.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -56,10 +57,11 @@ import { ConfirmationService } from 'primeng/api';
     PanelModule,
     ProgressSpinnerModule,
     ReactiveFormsModule,
-    TableModule
+    TableModule,
+    ToastModule
   ],
-  providers: [ConfirmationService],
-  bootstrap: [AppComponent]
+  providers: [ ConfirmationService, MessageService ],
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { 
   constructor() {}
