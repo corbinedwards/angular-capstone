@@ -19,7 +19,7 @@ export class MembersComponent implements OnInit {
   @Input() formControlName!: string;
   @ViewChild('membersTable') table: Table | undefined;
 
-  members: Member[] = [];
+  membersEditing: { [s: number]: Member } = {};
   maxMembers: number = 1;
 
   constructor(
@@ -35,7 +35,7 @@ export class MembersComponent implements OnInit {
     if (!this.membersAtCapacity()) {
       const newMember: Member = new Member();
       this.band?.Members.push(newMember);
-      const newRow = this.getCurrentMemberRow(newMember);
+      const newRow = this.table?.value.find(row => row.MemberId === 0);
       this.table?.initRowEdit(newRow);
     }
   }
@@ -44,15 +44,15 @@ export class MembersComponent implements OnInit {
     return this.band?.MaxGroupSize <= this.band?.Members.length;
   }
 
-  onKeyDown(event: KeyboardEvent, member: Member): void {
-    const currentRow = this.getCurrentMemberRow(member);
+  onKeyDown(event: KeyboardEvent, member: Member, rowIndex: number): void {
+    const currentRow = this.table?.value[rowIndex];
     if (event.key === 'Escape' && currentRow) {
       this.table?.cancelRowEdit(currentRow);
       if (member.MemberId === 0) this.removeMember(member);
     }
   }
 
-  onMemberDelete(member: Member): void {
+  onMemberDelete(member: Member, rowIndex: number): void {
     this.confirmationService.confirm({
       message: `Are you sure you want to remove '${member.MemberName}' from the band?`,
       accept: () => {
@@ -68,13 +68,18 @@ export class MembersComponent implements OnInit {
     })
   }
 
-  onMemberEdit(member: Member): void {
-    const currentRow = this.getCurrentMemberRow(member);
-    if (currentRow) this.table?.initRowEdit(currentRow);
+  onMemberEdit(member: Member, rowIndex: number): void {
+    const currentRow = this.table?.value[rowIndex];
+    if (currentRow) {
+      this.membersEditing[member.MemberId] = { ...member };
+      this.table?.initRowEdit(currentRow);
+    }
   }
 
-  onMemberEditCancel(member: Member): void {
-    if (member.MemberId === 0) this.removeMember(member);
+  onMemberEditCancel(member: Member, rowIndex: number): void {
+    const memberEditing = this.membersEditing[member.MemberId];
+    (member.MemberId === 0) ? this.removeMember(member) : this.band.Members[rowIndex] = memberEditing;
+    delete this.membersEditing[memberEditing.MemberId];
   }
 
   saveMember(member: any): void {
@@ -101,10 +106,6 @@ export class MembersComponent implements OnInit {
         error: (err) => this.toastMessageService.errorMessage('Error Editing Member', err.message)
       });
     }
-  }
-
-  private getCurrentMemberRow(member: Member): Member | null {
-    return this.table?.value.find(row => row.MemberId === member.MemberId);
   }
 
   private removeMember(member: Member) {
