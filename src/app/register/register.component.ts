@@ -30,7 +30,7 @@ export class RegisterComponent implements OnInit {
       bandName: ['', [ Validators.required ] ],
       label: [null, [ Validators.required ] ],
       sponsorName: ['', [ Validators.required ] ],
-      sponsorPhone: ['', [ Validators.required ] ],
+      sponsorPhone: ['', [ Validators.required, Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}') ] ],
       sponsorEmail: ['', [ Validators.email ] ],
       maxMembers: [1, [ Validators.min(1) ] ]
     });
