@@ -22,7 +22,7 @@
             <td>
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="member.MemberEmail" required>
+                        <input pInputText type="email" pattern=".+@.+" [(ngModel)]="member.MemberEmail" required>
                     </ng-template>
                     <ng-template pTemplate="output">
                         {{ member.MemberEmail }}
@@ -32,7 +32,7 @@
             <td>
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="member.MemberPhone" required>
+                        <input pInputText type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" [(ngModel)]="member.MemberPhone" required>
                     </ng-template>
                     <ng-template pTemplate="output">
                         {{ member.MemberPhone }}

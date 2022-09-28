@@ -83,6 +83,8 @@ export class MembersComponent implements OnInit {
   }
 
   saveMember(member: any): void {
+    if (!this.validateMember(member)) return
+
     if (member.MemberId < 1) {
       this.bandsService.addMember(this.band.GroupId, member).subscribe({
         next: (newMember: Member) => {
@@ -111,5 +113,14 @@ export class MembersComponent implements OnInit {
   private removeMember(member: Member) {
     const memberIndex = this.band?.Members.indexOf(member);      
     if (memberIndex > -1) this.band?.Members.splice(memberIndex, 1);
+  }
+
+  private validateMember(member: Member): boolean {
+    let invalid = (member.MemberName == undefined || member.MemberName.trim() === "");
+    invalid = (invalid || member.MemberEmail === undefined || member.MemberEmail.trim() === "" 
+              || !member.MemberEmail.match('.+@.+'));
+    invalid = (invalid || member.MemberPhone === undefined || member.MemberPhone.trim() === "" 
+              || !member.MemberPhone.match('[0-9]{3}-[0-9]{3}-[0-9]{4}'));
+    return !invalid;
   }
 }
