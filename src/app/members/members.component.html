@@ -74,7 +74,11 @@
         </tr>
     </ng-template>
     <ng-template pTemplate="summary">
-        <span class="underline text-primary pointer" (click)="addMember()">+ Add Member</span>
+        <span class="underline pointer" 
+            [ngClass]="{ 'text-400': membersAtCapacity(), 'text-primary': !membersAtCapacity() }" 
+            (click)="addMember()">
+            + Add Member
+        </span>
     </ng-template>
 </p-table>
 <p-confirmDialog key="removeMember"

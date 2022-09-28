@@ -29,10 +29,16 @@ export class MembersComponent implements OnInit {
   }
 
   addMember(): void {
-    const newMember: Member = new Member();
-    this.band?.Members.push(newMember);
-    const newRow = this.getCurrentMemberRow(newMember);
-    this.table?.initRowEdit(newRow);
+    if (!this.membersAtCapacity()) {
+      const newMember: Member = new Member();
+      this.band?.Members.push(newMember);
+      const newRow = this.getCurrentMemberRow(newMember);
+      this.table?.initRowEdit(newRow);
+    }
+  }
+
+  membersAtCapacity(): boolean {
+    return this.band?.MaxGroupSize <= this.band?.Members.length;
   }
 
   onKeyDown(event: KeyboardEvent, member: Member): void {

@@ -108,8 +108,6 @@ export class DetailsComponent implements OnInit {
   }
 
   updateBand(): void {
-    console.log(this.formDetails.value);
-    console.log(this.formSponsor.value);
     this.bandsService.updateBand(this.band).subscribe({
       error: (err) => console.log(err.message)
     });
