@@ -64,7 +64,8 @@ export class DetailsComponent implements OnInit {
           next: () => this.router.navigate(['results']),
           error: (err) => console.log(err.message)
         })
-      }
+      },
+      key: 'deleteBand'
     })
   }
 

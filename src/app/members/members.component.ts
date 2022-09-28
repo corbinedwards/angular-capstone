@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
+import { ConfirmDialog } from 'primeng/confirmdialog';
 import { Table } from 'primeng/table';
 import { Band } from '../models/band';
 import { Member } from '../models/member';
@@ -50,7 +51,8 @@ export class MembersComponent implements OnInit {
           next: (value) => this.removeMember(member),
           error: (err) => console.log(err.message)
         });
-      }
+      },
+      key: 'removeMember'
     })
   }
 
