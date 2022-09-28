@@ -50,6 +50,7 @@
         <p-button type="submit" label="Submit" class="mt-4"></p-button>
     </form>
 </section>
+<p-toast></p-toast>
 <ng-template #warning let-control="control" let-message="message">
     <small *ngIf="!registerForm.controls[control].valid && registerForm.controls[control].touched" 
         id="{{ control }}-help" 

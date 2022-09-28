@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { Band } from '../models/band';
 import { Label } from '../models/label';
 import { BandsService } from '../services/bands.service';
@@ -9,7 +10,8 @@ import { BandsService } from '../services/bands.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
+  providers: [ MessageService ]
 })
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
@@ -18,19 +20,20 @@ export class RegisterComponent implements OnInit {
   band: Band = new Band();
 
   constructor(
-    private bandsService: BandsService, 
+    private bandsService: BandsService,
+    private messageService: MessageService,
+    private fb: FormBuilder,
     private router: Router,
     private titleService: Title
-  ) { 
-    this.registerForm = new FormGroup({
-      bandName: new FormControl('', { validators: Validators.required }),
-      label: new FormControl(null, { validators: Validators.required }),
-      sponsorName: new FormControl('', { validators: Validators.required }),
-      sponsorPhone: new FormControl('', { validators: Validators.required }),
-      sponsorEmail: new FormControl('', { validators: Validators.email }),
-      maxMembers: new FormControl(1, { validators: Validators.min(1) })
-    }, 
-    { updateOn: 'blur' });
+  ) {
+    this.registerForm = fb.group({
+      bandName: ['', [ Validators.required ] ],
+      label: [null, [ Validators.required ] ],
+      sponsorName: ['', [ Validators.required ] ],
+      sponsorPhone: ['', [ Validators.required ] ],
+      sponsorEmail: ['', [ Validators.email ] ],
+      maxMembers: [1, [ Validators.min(1) ] ]
+    });
   }
 
   ngOnInit(): void {
@@ -53,8 +56,17 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(formValues: any): void {
     this.bandsService.createNewBand(this.band).subscribe({
-      next: (band) => this.router.navigate(['details', band.GroupId]),
-      error: (err) => console.log(err.message)
+      next: (band) => {
+        this.router.navigate(['details', band.GroupId]);
+      },
+      error: (err) => {
+        this.messageService.add({
+          severity: 'error', 
+          summary: 'Error', 
+          detail: err.message,
+          life: 10000
+        });
+      }
     })
   }
 }

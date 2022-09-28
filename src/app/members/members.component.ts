@@ -1,15 +1,18 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { ConfirmationService } from 'primeng/api';
-import { ConfirmDialog } from 'primeng/confirmdialog';
-import { Table } from 'primeng/table';
+import { ConfirmationService, MessageService } from 'primeng/api';
+
 import { Band } from '../models/band';
 import { Member } from '../models/member';
+import { Table } from 'primeng/table';
+
 import { BandsService } from '../services/bands.service';
+import { ToastMessageService } from '../services/toast-message.service';
 
 @Component({
   selector: 'app-members',
   templateUrl: './members.component.html',
-  styleUrls: ['./members.component.css']
+  styleUrls: ['./members.component.css'],
+  providers: [ MessageService ]
 })
 export class MembersComponent implements OnInit {
 
@@ -22,7 +25,8 @@ export class MembersComponent implements OnInit {
 
   constructor(
     private bandsService: BandsService, 
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
   ) { }
 
   ngOnInit(): void {
@@ -54,8 +58,21 @@ export class MembersComponent implements OnInit {
       message: `Are you sure you want to remove '${member.MemberName}' from the band?`,
       accept: () => {
         this.bandsService.deleteMember(this.band.GroupId, member.MemberId).subscribe({
-          next: (value) => this.removeMember(member),
-          error: (err) => console.log(err.message)
+          next: (value) => {
+            this.removeMember(member);
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Success',
+              detail: 'Member successfully removed.',
+              life: 10000
+            })
+          },
+          error: (err) => this.messageService.add({
+              severity: 'error', 
+              summary: 'Error Removing Member',
+              detail: err.message,
+              life: 10000
+          }),
         });
       },
       key: 'removeMember'
@@ -78,8 +95,18 @@ export class MembersComponent implements OnInit {
           const currentMember = this.band.Members.find(findMember => findMember.MemberId === 0);
           if (currentMember) currentMember.MemberId = newMember.MemberId;
         },
-        error: (err) => console.log(err.message)
-        // TODO: complete with toast
+        error: (err) => this.messageService.add({
+          severity: 'error',
+          summary: 'Error Adding Member',
+          detail: err.message,
+          life: 10000
+        }),
+        complete: () => this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Member successfully added.',
+          life: 10000
+        })
       });
     } else {
       this.bandsService.updateMember(this.band.GroupId, member).subscribe({
@@ -91,7 +118,18 @@ export class MembersComponent implements OnInit {
             currentMember.MemberPhone = member.MemberPhone;
           }
         },
-        error: (err) => console.log(err.message)
+        error: (err) => this.messageService.add({
+          severity: 'error',
+          summary: 'Error Editing Member',
+          detail: err.message,
+          life: 10000
+        }),
+        complete: () => this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Member successfully updated.',
+          life: 10000
+        })
       });
     }
   }
