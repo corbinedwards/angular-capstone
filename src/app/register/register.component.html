@@ -23,7 +23,12 @@
         </div>
         <div class="register-field w-2">
             <label for="maxMembers">Max Members</label>
-            <input id="maxMembers" formControlName="maxMembers" type="text" pInputText>
+            <p-inputNumber id="maxMembers"
+                formControlName="maxMembers" 
+                placeholder="Max Members"
+                [min]="1"
+                [showButtons]="true">
+            </p-inputNumber>
             <ng-container *ngTemplateOutlet="warning; context: { control: 'maxMembers', message: 'Number of members must be greater than 0.' }"></ng-container>
         </div>
         <h3>Sponsor Info</h3>
