@@ -11,20 +11,22 @@ export class ToastMessageService {
   ) { }
 
   successMessage(detail: string): void {
+    this.primeMessageService.clear();
     this.primeMessageService.add({
       severity: 'success',
       summary: 'Success',
       detail,
-      life: 10000
+      life: 5000
     });
   }
 
   errorMessage(summary: string, detail: string): void {
+    this.primeMessageService.clear();
     this.primeMessageService.add({
       severity: 'error', 
       summary,
       detail,
-      life: 10000
+      life: 5000,
     });
     console.log(detail);
   }

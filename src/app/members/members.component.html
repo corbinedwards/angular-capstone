@@ -12,7 +12,7 @@
             <td>
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="member.MemberName">
+                        <input pInputText type="text" [(ngModel)]="member.MemberName" required>
                     </ng-template>
                     <ng-template pTemplate="output">
                         {{ member.MemberName }}
@@ -22,7 +22,7 @@
             <td>
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="member.MemberEmail">
+                        <input pInputText type="text" [(ngModel)]="member.MemberEmail" required>
                     </ng-template>
                     <ng-template pTemplate="output">
                         {{ member.MemberEmail }}
@@ -32,7 +32,7 @@
             <td>
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="member.MemberPhone">
+                        <input pInputText type="text" [(ngModel)]="member.MemberPhone" required>
                     </ng-template>
                     <ng-template pTemplate="output">
                         {{ member.MemberPhone }}
@@ -88,4 +88,3 @@
     rejectButtonStyleClass="p-button-danger p-button-outlined"
     defaultFocus="reject">
 </p-confirmDialog>
-<p-toast></p-toast>
