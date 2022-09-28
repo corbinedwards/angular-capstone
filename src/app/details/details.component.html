@@ -62,7 +62,7 @@
             <p-panel>
                 <ng-template pTemplate="header">
                     <div class="flex justify-content-between align-content-center w-full">
-                        <h3 class="m-0">Sponsor Info</h3>
+                        <h3 class="m-0">Manager Info</h3>
                         <button pButton 
                             type="button" 
                             icon="pi pi-pencil" 
@@ -78,16 +78,16 @@
                     (ngSubmit)="onSubmitSponsor()"
                 >
                     <div class="panel-field">
-                        <label for="sponsorName">Sponsor Name</label>
-                        <input type="text" id="sponsorName" formControlName="sponsorName" placeholder="Sponsor Name" pInputText>
+                        <label for="sponsorName">Manager Name</label>
+                        <input type="text" id="sponsorName" formControlName="sponsorName" placeholder="Manager Name" pInputText>
                     </div>
                     <div class="panel-field">
-                        <label for="sponsorEmail">Sponsor Email</label>
-                        <input type="text" id="sponsorEmail" formControlName="sponsorEmail" placeholder="Sponsor Email" pInputText>
+                        <label for="sponsorEmail">Manager Email</label>
+                        <input type="text" id="sponsorEmail" formControlName="sponsorEmail" placeholder="Manager Email" pInputText>
                     </div>
                     <div class="panel-field">
-                        <label for="sponsorPhone">Sponsor Phone</label>
-                        <input type="text" id="sponsorPhone" formControlName="sponsorPhone" placeholder="Sponsor Phone" pInputText>
+                        <label for="sponsorPhone">Manager Phone</label>
+                        <input type="text" id="sponsorPhone" formControlName="sponsorPhone" placeholder="Manager Phone" pInputText>
                     </div>
                     <div class="edit-buttons">
                         <button pButton pRipple 
@@ -137,15 +137,15 @@
 <ng-template #sponsor>
     <div class="panel-body">
         <div class="panel-field">
-            <label>Sponsor Name</label>
+            <label>Manager Name</label>
             <div>{{ band.SponsorName }}</div>
         </div>
         <div class="panel-field">
-            <label>Sponsor Email</label>
+            <label>Manager Email</label>
             <div><a href="mailto: {{ band.SponsorEmail }}">{{ band.SponsorEmail }}</a></div>
         </div>
         <div class="panel-field">
-            <label>Sponsor Phone</label>
+            <label>Manager Phone</label>
             <div>{{ band.SponsorPhone }}</div>
         </div>
     </div>

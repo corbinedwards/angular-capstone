@@ -11,7 +11,7 @@
             <ng-container *ngTemplateOutlet="warning; context: { control: 'bandName', message: 'Band Name not valid.' }"></ng-container>
         </div>
         <div class="register-field">
-            <label for="label">Label</label>
+            <label for="label">Record Label</label>
             <p-dropdown [options]="labels" 
                 optionLabel="OrganizationName" 
                 formControlName="label"
@@ -31,21 +31,21 @@
             </p-inputNumber>
             <ng-container *ngTemplateOutlet="warning; context: { control: 'maxMembers', message: 'Number of members must be greater than 0.' }"></ng-container>
         </div>
-        <h3>Sponsor Info</h3>
+        <h3>Manager Info</h3>
         <div class="register-field">
-            <label for="sponsorName">Sponsor Name</label>
+            <label for="sponsorName">Manager Name</label>
             <input id="sponsorName" formControlName="sponsorName" type="text" pInputText>
-            <ng-container *ngTemplateOutlet="warning; context: { control: 'sponsorName', message: 'Sponsor Name not valid.' }"></ng-container>
+            <ng-container *ngTemplateOutlet="warning; context: { control: 'sponsorName', message: 'Manager Name not valid.' }"></ng-container>
         </div>
         <div class="register-field">
-            <label for="sponsorPhone">Sponsor Phone</label>
+            <label for="sponsorPhone">Manager Phone</label>
             <input id="sponsorPhone" formControlName="sponsorPhone" type="text" pInputText>
-            <ng-container *ngTemplateOutlet="warning; context: { control: 'sponsorPhone', message: 'Sponsor Phone not valid.' }"></ng-container>
+            <ng-container *ngTemplateOutlet="warning; context: { control: 'sponsorPhone', message: 'Manager Phone not valid.' }"></ng-container>
         </div>
         <div class="register-field">
-            <label for="sponsorEmail">Sponsor Email</label>
+            <label for="sponsorEmail">Manager Email</label>
             <input id="sponsorEmail" formControlName="sponsorEmail" type="text" pInputText>
-            <ng-container *ngTemplateOutlet="warning; context: { control: 'sponsorEmail', message: 'Sponsor Email not valid.' }"></ng-container>
+            <ng-container *ngTemplateOutlet="warning; context: { control: 'sponsorEmail', message: 'Manager Email not valid.' }"></ng-container>
         </div>
         <p-button type="submit" label="Submit" class="mt-4"></p-button>
     </form>

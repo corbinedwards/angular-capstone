@@ -43,7 +43,7 @@ export class SearchResultsComponent implements OnInit {
         },
         error: (err) => console.log(err.message),
         complete: () => {
-          const pageTitle = (this.searchQuery) ? `Search Results - '${this.searchQuery}'` : 'All Bands';
+          const pageTitle = (this.searchQuery) ? `Search Results - '${this.searchQuery}'` : 'All Participating Bands';
           this.isLoading = false;
           this.headerText = pageTitle;
           this.titleService.setTitle(`${pageTitle} - Battle of the Bands`);
