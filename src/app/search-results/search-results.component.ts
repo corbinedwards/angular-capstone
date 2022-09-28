@@ -14,9 +14,8 @@ export class SearchResultsComponent implements OnInit {
   bands: Band[] = [];
   headerText: string = 'Searching...';
   isLoading: boolean = true;
-
-  private searchQuery: string = '';
-  private labelId: string = '';
+  searchQuery: string = '';
+  labelId: string = '';
 
   constructor(
     public router: Router,

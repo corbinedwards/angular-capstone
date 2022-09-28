@@ -4,7 +4,13 @@
         <p-progressSpinner></p-progressSpinner>
     </div>
     <div class="mt-5 mb-5">
-        <a class="text-primary active:text-red-500 underline pointer" id="view-all-link" (click)="viewAllBands()">View All Bands...</a>
+        <a id="view-all-link"
+            *ngIf="searchQuery !== '' || labelId !== ''"
+            class="text-primary active:text-red-500 underline pointer" 
+            (click)="viewAllBands()"
+        >
+            View All Bands...
+        </a>
     </div>
 </section>
 <ng-template #loadFinished>

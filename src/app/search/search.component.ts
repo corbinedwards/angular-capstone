@@ -29,5 +29,6 @@ export class SearchComponent implements OnInit {
 
   onSearch(formValues: any) {
     this.router.navigate(['/results', { query: formValues.query }]);
+    this.searchForm.get('query')?.reset();
   }
 }
