@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { ConfirmationService } from 'primeng/api';
 import { Band } from '../models/band';
 import { Label } from '../models/label';
 import { BandsService } from '../services/bands.service';
@@ -18,8 +19,11 @@ export class RegisterComponent implements OnInit {
   selectedLabel!: Label;
   band: Band = new Band();
 
+  private submitting = false;
+
   constructor(
     private bandsService: BandsService,
+    private confirmationService: ConfirmationService,
     private toastMessageService: ToastMessageService,
     private fb: FormBuilder,
     private router: Router,
@@ -53,16 +57,21 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+  canDeactivate(): boolean {
+    return this.registerForm.pristine || this.submitting;
+  }
+
   onSubmit(formValues: any): void {
     if (!this.registerForm.valid) return;
-    
+    this.submitting = true;
     this.bandsService.createNewBand(this.band).subscribe({
       next: (band) => {
         this.toastMessageService.successMessage('Band successfully registered.');
         this.router.navigate(['details', band.GroupId]);
       },
       error: (err) => {
-        this.toastMessageService.errorMessage('Error Registering Band', err.message)
+        this.toastMessageService.errorMessage('Error Registering Band', err.message);
+        this.submitting = false;
       }
     })
   }
