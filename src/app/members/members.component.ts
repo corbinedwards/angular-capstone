@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService } from 'primeng/api';
 
 import { Band } from '../models/band';
 import { Member } from '../models/member';
@@ -45,10 +45,9 @@ export class MembersComponent implements OnInit {
   }
 
   onKeyDown(event: KeyboardEvent, member: Member, rowIndex: number): void {
-    const currentRow = this.table?.value[rowIndex];
-    if (event.key === 'Escape' && currentRow) {
-      this.table?.cancelRowEdit(currentRow);
-      if (member.MemberId === 0) this.removeMember(member);
+    if (event.key === 'Escape') {
+      this.table?.cancelRowEdit(this.table?.value[rowIndex]);
+      this.onMemberEditCancel(member, rowIndex);
     }
   }
 

@@ -1,13 +1,12 @@
 <form [formGroup]="searchForm" 
     id="searchForm" 
-    class="flex"
     novalidate>
-    <!-- <p-dropdown class="search-type" [options]="searchOptions"></p-dropdown> -->
-    <span class="p-input-icon-left">
+    <span class="flex gap-2 p-input-icon-left">
         <i class="pi pi-search"></i>
         <p-autoComplete id="searchBox"
             formControlName="query"
             placeholder="Search Bands..."
+            styleClass="w-19rem"
             [suggestions]="filteredBands"
             (completeMethod)="filterBand($event)"
             (onFocus)="onFocus()"
@@ -17,7 +16,7 @@
             type="button" 
             label="Search" 
             title="Search Bands"
-            class="p-button-secondary" 
+            class="p-button-primary" 
             (click)="onSearch(searchForm.value)">
         </button>
     </span>
