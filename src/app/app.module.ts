@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { GalleriaModule } from 'primeng/galleria';
@@ -43,6 +44,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
     PageNotFoundComponent
   ],
   imports: [
+    AutoCompleteModule,
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
