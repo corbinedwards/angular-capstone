@@ -2,16 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
 import { Band } from '../models/band';
 import { Label } from '../models/label';
 import { BandsService } from '../services/bands.service';
+import { ToastMessageService } from '../services/toast-message.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
-  providers: [ MessageService ]
+  styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
@@ -21,7 +20,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private bandsService: BandsService,
-    private messageService: MessageService,
+    private toastMessageService: ToastMessageService,
     private fb: FormBuilder,
     private router: Router,
     private titleService: Title
@@ -31,7 +30,7 @@ export class RegisterComponent implements OnInit {
       label: [null, [ Validators.required ] ],
       sponsorName: ['', [ Validators.required ] ],
       sponsorPhone: ['', [ Validators.required, Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}') ] ],
-      sponsorEmail: ['', [ Validators.email ] ],
+      sponsorEmail: ['', [ Validators.required, Validators.email ] ],
       maxMembers: [1, [ Validators.min(1) ] ]
     });
   }
@@ -55,17 +54,15 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(formValues: any): void {
+    if (!this.registerForm.valid) return;
+    
     this.bandsService.createNewBand(this.band).subscribe({
       next: (band) => {
+        this.toastMessageService.successMessage('Band successfully registered.');
         this.router.navigate(['details', band.GroupId]);
       },
       error: (err) => {
-        this.messageService.add({
-          severity: 'error', 
-          summary: 'Error', 
-          detail: err.message,
-          life: 10000
-        });
+        this.toastMessageService.errorMessage('Error Registering Band', err.message)
       }
     })
   }
