@@ -1,10 +1,10 @@
-<nav class="nav-container flex justify-content-between">
-    <div class="nav-left flex justify-content-between w-full">
-        <a href="" class="nav-link" routerLink="home" routerLinkActive="nav-link-active">Home</a>
-        <a href="" class="nav-link" routerLink="results" routerLinkActive="nav-link-active">Bands</a>
-        <a href="" class="nav-link" routerLink="register" routerLinkActive="nav-link-active">Register</a>
+<nav class="bg-bluegray-400 w-full flex flex-column lg:flex-row justify-content-between">
+    <div class="flex w-full">
+        <a class="nav-link hover:bg-bluegray-800" routerLink="home" routerLinkActive="bg-bluegray-800">Home</a>
+        <a class="nav-link hover:bg-bluegray-800" routerLink="results" routerLinkActive="bg-bluegray-800">Bands</a>
+        <a class="nav-link hover:bg-bluegray-800" routerLink="register" routerLinkActive="bg-bluegray-800">Register</a>
     </div>
-    <div class="nav-right flex justify-content-between w-8">
+    <div class="flex align-items-center p-3 lg:p-0 w-full lg:w-8">
         <app-search></app-search>
     </div>
 </nav>
