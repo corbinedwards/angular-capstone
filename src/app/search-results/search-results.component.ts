@@ -39,7 +39,7 @@ export class SearchResultsComponent implements OnInit {
       {
         next: (data: Band[]) =>  { 
           this.bands = data;
-          if (this.searchQuery) this.bands = this.bands.filter(band => band.GroupName.toLowerCase() === this.searchQuery);
+          if (this.searchQuery) this.bands = this.bands.filter(band => band.GroupName.toLowerCase().indexOf(this.searchQuery) == 0);
         },
         error: (err) => console.log(err.message),
         complete: () => {
