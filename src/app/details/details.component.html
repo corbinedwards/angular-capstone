@@ -52,7 +52,7 @@
                             type="button" 
                             label="Cancel" 
                             class="p-button-outlined p-button-rounded" 
-                            (click)="editingDetails = false">
+                            (click)="editBandDetailsCancel()">
                         </button>
                     </div>
                 </form>
@@ -99,14 +99,14 @@
                             type="button" 
                             label="Cancel" 
                             class="p-button-outlined p-button-rounded" 
-                            (click)="editingSponsor = false">
+                            (click)="editSponsorDetailsCancel()">
                         </button>
                     </div>
                 </form>
             </p-panel>
         </div>
     </div>
-    <app-members [band]="band"></app-members>
+    <app-members #membersComponent [band]="band"></app-members>
     <div class="flex justify-content-end mt-4">
         <button pButton type="button" label="Delete Band" class="p-button-outlined p-button-danger" (click)="deleteBand()"></button>
         <p-confirmDialog key="deleteBand"

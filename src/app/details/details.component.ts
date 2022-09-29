@@ -4,6 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService, Message, MessageService } from 'primeng/api';
 import { Dropdown } from 'primeng/dropdown';
+import { MembersComponent } from '../members/members.component';
 import { Band } from '../models/band';
 import { BandsService } from '../services/bands.service';
 import { ToastMessageService } from '../services/toast-message.service';
@@ -16,6 +17,7 @@ import { ToastMessageService } from '../services/toast-message.service';
 export class DetailsComponent implements OnInit {
 
   @ViewChild('maxMembers') maxMembersDropdown: Dropdown | undefined;
+  @ViewChild('membersComponent') membersComponent: MembersComponent | undefined;
 
   band: Band = new Band();
   labels: string[] = [];
@@ -57,6 +59,14 @@ export class DetailsComponent implements OnInit {
     this.bandsService.getLabels().subscribe(labels => this.labels = labels.map(label => label.OrganizationName));
   }
 
+  canDeactivate(): boolean {
+    let deactivate = this.formDetails.pristine && this.formSponsor.pristine;
+    if (this.membersComponent) {
+      deactivate = (deactivate && Object.entries(this.membersComponent?.membersEditing).length === 0);
+    }
+    return deactivate;
+  }
+
   deleteBand(): void {
     this.confirmationService.confirm({
       message: `Are you sure you want to permanently delete this band? All member data will also be lost.`,
@@ -79,6 +89,11 @@ export class DetailsComponent implements OnInit {
     this.editingDetails = true;
   }
 
+  editBandDetailsCancel(): void {
+    this.editingDetails = false;
+    this.formDetails.markAsPristine();
+  }
+
   editSponsorDetails(): void {
     if (this.editingSponsor) return;
 
@@ -86,6 +101,11 @@ export class DetailsComponent implements OnInit {
     this.formSponsor.get('sponsorEmail')?.setValue(this.band.SponsorEmail);
     this.formSponsor.get('sponsorPhone')?.setValue(this.band.SponsorPhone);
     this.editingSponsor = true;
+  }
+
+  editSponsorDetailsCancel(): void {
+    this.editingSponsor = false;
+    this.formSponsor.markAsPristine();
   }
 
   onSubmitDetails(): void {
