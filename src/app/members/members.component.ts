@@ -36,7 +36,11 @@ export class MembersComponent implements OnInit {
       const newMember: Member = new Member();
       this.band?.Members.push(newMember);
       const newRow = this.table?.value.find(row => row.MemberId === 0);
-      this.table?.initRowEdit(newRow);
+      
+      if (newRow) {
+        this.membersEditing[newRow.MemberId] = { ...newRow };
+        this.table?.initRowEdit(newRow);
+      }
     }
   }
 
@@ -89,6 +93,7 @@ export class MembersComponent implements OnInit {
         next: (newMember: Member) => {
           const currentMember = this.band.Members.find(findMember => findMember.MemberId === 0);
           if (currentMember) currentMember.MemberId = newMember.MemberId;
+          delete this.membersEditing[member.MemberId];
           this.toastMessageService.successMessage('Member successfully added.');
         },
         error: (err) => this.toastMessageService.errorMessage('Error Adding Member', err.message)
@@ -102,7 +107,8 @@ export class MembersComponent implements OnInit {
             currentMember.MemberEmail = member.MemberEmail;
             currentMember.MemberPhone = member.MemberPhone;
           }
-          this.toastMessageService.successMessage('Member successfully updated.')
+          delete this.membersEditing[member.MemberId];
+          this.toastMessageService.successMessage('Member successfully updated.');
         },
         error: (err) => this.toastMessageService.errorMessage('Error Editing Member', err.message)
       });
