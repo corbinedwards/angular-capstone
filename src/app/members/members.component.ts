@@ -88,12 +88,12 @@ export class MembersComponent implements OnInit {
   saveMember(member: any): void {
     if (!this.validateMember(member)) return
 
-    if (member.MemberId < 1) {
+    if (member.MemberId === 0) {
       this.bandsService.addMember(this.band.GroupId, member).subscribe({
         next: (newMember: Member) => {
           const currentMember = this.band.Members.find(findMember => findMember.MemberId === 0);
           if (currentMember) currentMember.MemberId = newMember.MemberId;
-          delete this.membersEditing[member.MemberId];
+          delete this.membersEditing[0];
           this.toastMessageService.successMessage('Member successfully added.');
         },
         error: (err) => this.toastMessageService.errorMessage('Error Adding Member', err.message)
