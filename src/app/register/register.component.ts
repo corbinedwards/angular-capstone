@@ -40,6 +40,9 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const firstInput = document.getElementById('bandName');
+    if (firstInput) firstInput.focus();
+
     this.titleService.setTitle('Register Band - Battle of the Bands');
     
     this.bandsService.getLabels().subscribe({
